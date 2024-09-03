@@ -1,7 +1,5 @@
 <x-app-layout>
+    <a href={{route('food.create')}}><x-primary-button>Create</x-primary-button></a>
+<livewire:food-table/>
 
-
-@foreach($foods as $food)
-    {{$food->name}}
-@endforeach
 </x-app-layout>

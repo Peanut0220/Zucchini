@@ -30,4 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/food', FoodController::class);
 });
 
+Route::get('/test',[FoodController::class,'test'])->name('test');
+
 require __DIR__.'/auth.php';

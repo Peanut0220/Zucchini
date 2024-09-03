@@ -29,7 +29,8 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-
+        Food::create($request->all());
+        return redirect()->route('food.index');
     }
 
     /**
@@ -51,9 +52,10 @@ class FoodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFoodRequest $request, Food $food)
+    public function update(StoreFoodRequest $request, Food $food)
     {
-        //
+        $food->update($request->all());
+        return redirect()->route('food.index');
     }
 
     /**
@@ -61,6 +63,11 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        $food->delete();
+        return redirect()->route('food.index');
+    }
+
+    public function test(){
+        return dd(Food::all());
     }
 }

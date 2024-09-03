@@ -19,19 +19,23 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class FoodTable extends PowerGridComponent
 {
     use WithExport;
+    public bool $showFilters = true;
+    public bool $multiSort = true;
+    public int $perPage = 10;
+    public array $perPageValues = [0, 5, 10, 20, 50];
 
     public function setUp(): array
     {
         $this->showCheckBox();
 
         return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
-            Header::make()->showSearchInput(),
+            Header::make()
+                ->showSearchInput()
+                ->showToggleColumns(),
             Footer::make()
-                ->showPerPage()
+                ->showPerPage($this->perPage, $this->perPageValues)
                 ->showRecordCount(),
+
         ];
     }
 
@@ -49,6 +53,9 @@ final class FoodTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
+            ->add('name')
+            ->add('description')
+            ->add('price')
             ->add('created_at');
     }
 
@@ -56,9 +63,13 @@ final class FoodTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
 
+            Column::make('Name', 'name')
+                ->sortable()
+                ->searchable(),
+            Column::make('Price', 'price')
+                ->sortable()
+                ->searchable(),
             Column::make('Created at', 'created_at')
                 ->sortable()
                 ->searchable(),
@@ -83,10 +94,10 @@ final class FoodTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
-                ->id()
+                ->slot('Edit')
+
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->route('food.edit', ['food' => $row])
         ];
     }
 
