@@ -10,6 +10,7 @@ export default {
         "./node_modules/flowbite/**/*.js",
         './app/Livewire/**/*Table.php',
         './vendor/power-components/livewire-powergrid/resources/views/**/*.php',
+        'node_modules/preline/dist/*.js',
         './vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php'
     ],
 
@@ -21,5 +22,5 @@ export default {
         },
     },
 
-    plugins: [forms,require('flowbite/plugin')],
+    plugins: [forms,require('flowbite/plugin'),require('preline/plugin')],
 };
