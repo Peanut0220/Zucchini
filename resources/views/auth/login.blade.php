@@ -28,7 +28,7 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember meeee') }}</span>
             </label>
         </div>
 
@@ -39,9 +39,17 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+
+
+                <x-primary-button class="ms-4 pr-5 pl-5 ">
+                    {{ __('Log in') }}
+                </x-primary-button>
         </div>
     </form>
+    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+    <div class="text-center pb-3.5">
+    <a href="{{ route('register') }}" class="text-center underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+            Haven't got a account yet?
+    </a>
+    </div>
 </x-guest-layout>
