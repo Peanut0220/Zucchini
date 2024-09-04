@@ -13,7 +13,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        return view('delivery.index',['deliveries'=>Delivery::all()]);
     }
 
     /**
@@ -21,7 +21,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        //
+        return view('delivery.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class DeliveryController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        //
+        return view('delivery.show', compact('delivery'));
     }
 
     /**
@@ -45,7 +45,7 @@ class DeliveryController extends Controller
      */
     public function edit(Delivery $delivery)
     {
-        //
+        return view('delivery.edit', compact('delivery'));
     }
 
     /**
