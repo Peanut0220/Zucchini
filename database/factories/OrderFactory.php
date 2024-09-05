@@ -17,7 +17,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'food_id' => '1'
         ];
     }
 }
