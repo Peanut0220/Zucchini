@@ -49,23 +49,6 @@ class DeliveryController extends Controller
         return view('delivery.edit', compact('delivery'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-
-    public function update(Request $request, Delivery $delivery)
-    {
-        $request->validate([
-            'status' => 'required|string|max:255',
-        ]);
-
-        $delivery->status = $request->input('status');
-        $delivery->save();
-
-        return redirect()->route('some.route')->with('success', 'Delivery status updated successfully!');
-    }
-
-
 
     /**
      * Remove the specified resource from storage.

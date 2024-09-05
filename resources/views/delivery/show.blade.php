@@ -27,14 +27,8 @@
                     <input type="text" value="{{ $delivery->updated_at }}" class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300" disabled>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Delivered By</label>
-                    <select name="delivered_by" class="mt-1 p-2 block w-full bg-white rounded-md border-gray-300">
-                        <option value="">Select Delivery Person</option>
-                        <option value="John Doe">John Doe</option>
-                        <option value="Jane Smith">Jane Smith</option>
-                        <option value="Emily Davis">Emily Davis</option>
-                        <option value="Mike Johnson">Mike Johnson</option>
-                    </select>
+                    <label class="block text-sm font-medium text-gray-700">Updated At</label>
+                    <input type="text" value="{{ $delivery->updated_at }}" class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300" disabled>
                 </div>
             </div>
         </div>

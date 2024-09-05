@@ -66,9 +66,7 @@ final class DeliveryTable extends PowerGridComponent
 
             Column::make('Status', 'status')
                 ->sortable()
-                ->searchable()
-                ->editOnClick()
-                ->bodyAttribute('status-cell'),
+                ->searchable(),
 
             Column::make('Order Id', 'order_id')
                 ->sortable()

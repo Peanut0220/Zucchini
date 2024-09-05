@@ -10,8 +10,4 @@ class Delivery extends Model
     use HasFactory;
 
     protected $fillable =['status','order_id'];
-
-    public static function find($rowId)
-    {
-    }
 }

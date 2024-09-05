@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/food', FoodController::class);
     Route::resource('/delivery', DeliveryController::class);
     Route::get('/delivery/{delivery}', [DeliveryController::class, 'show'])->name('delivery.show');
-    Route::patch('/delivery/{delivery}', [DeliveryController::class, 'update'])->name('delivery.update');
+    Route::patch('/delivery/{delivery}', [DeliveryController::class, 'edit'])->name('delivery.edit');
 
 });
 
