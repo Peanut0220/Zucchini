@@ -5,6 +5,7 @@
             <form action="{{route('food.update',$food)}}" method="post">
                 @csrf
                 @method('PATCH')
+                <img src="{{asset('storage/'.$food->image_path)}}"/>
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2">
                         <x-input-label for="name" :value="__('Name')" />

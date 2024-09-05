@@ -29,7 +29,18 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-        Food::create($request->all());
+        $file = $request->hasFile('thumbnail');
+        if ($file) {
+            $newFile = $request->file('thumbnail');
+            $file_path = $newFile->store('images');
+            Food::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'image_path' => $file_path
+            ]);
+
+        }
         return redirect()->route('food.index');
     }
 
@@ -67,7 +78,8 @@ class FoodController extends Controller
         return redirect()->route('food.index');
     }
 
-    public function test(){
+    public function test()
+    {
         return dd(Food::all());
     }
 }

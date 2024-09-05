@@ -40,13 +40,14 @@
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
                             </div>
-                            <input id="dropzone-file" type="file" accept="image/*" class="hidden" />
+                            <input id="dropzone-file" name="thumbnail" type="file" accept="image/*" class="hidden" />
 
                             <!-- Image Preview INSIDE dropzone -->
                             <img id="file-preview" class="hidden rounded-lg" src="" alt="Image Preview">
                         </label>
-                    </div>
 
+                    </div>
+                    <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
                     <!-- Submit Button -->
                     <x-create-button type="submit" class="mt-3">Add</x-create-button>
                 </form>
