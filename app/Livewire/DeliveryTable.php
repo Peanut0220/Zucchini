@@ -26,8 +26,6 @@ final class DeliveryTable extends PowerGridComponent
 
     public function setUp(): array
     {
-        $this->showCheckBox();
-
         return [
             Header::make()
                 ->showSearchInput()
@@ -87,18 +85,6 @@ final class DeliveryTable extends PowerGridComponent
         return [
         ];
     }
-
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId, $field, $value): void
-    {
-        $delivery = Delivery::find($rowId);
-
-        if ($delivery) {
-            $delivery->$field = $value;
-            $delivery->save();
-        }
-    }
-
 
     public function actions(Delivery $row): array
     {
