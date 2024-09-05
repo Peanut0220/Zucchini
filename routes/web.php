@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/food', FoodController::class);
     Route::resource('/delivery', DeliveryController::class);
+    Route::get('/delivery/{delivery}', [DeliveryController::class, 'show'])->name('delivery.show');
+    Route::patch('/delivery/{delivery}', [DeliveryController::class, 'update'])->name('delivery.update');
+
 });
 
 Route::get('/test',[FoodController::class,'test'])->name('test');

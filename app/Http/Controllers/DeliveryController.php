@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Http\Requests\UpdateDeliveryRequest;
+use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
@@ -51,10 +52,20 @@ class DeliveryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDeliveryRequest $request, Delivery $delivery)
+
+    public function update(Request $request, Delivery $delivery)
     {
-        //
+        $request->validate([
+            'status' => 'required|string|max:255',
+        ]);
+
+        $delivery->status = $request->input('status');
+        $delivery->save();
+
+        return redirect()->route('some.route')->with('success', 'Delivery status updated successfully!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

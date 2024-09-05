@@ -66,7 +66,10 @@ final class DeliveryTable extends PowerGridComponent
 
             Column::make('Status', 'status')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->editOnClick()
+                ->bodyAttribute('status-cell'),
+
             Column::make('Order Id', 'order_id')
                 ->sortable()
                 ->searchable(),
@@ -76,10 +79,10 @@ final class DeliveryTable extends PowerGridComponent
             Column::make('Updated at', 'updated_at')
                 ->sortable()
                 ->searchable(),
-
             Column::action('Action')
         ];
     }
+
 
     public function filters(): array
     {
@@ -88,31 +91,24 @@ final class DeliveryTable extends PowerGridComponent
     }
 
     #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
+    public function edit($rowId, $field, $value): void
     {
-        $this->js('alert('.$rowId.')');
+        $delivery = Delivery::find($rowId);
+
+        if ($delivery) {
+            $delivery->$field = $value;
+            $delivery->save();
+        }
     }
+
 
     public function actions(Delivery $row): array
     {
         return [
-            Button::add('edit')
-                ->slot('Edit')
-
+            Button::add('show')
+                ->slot('View')
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->route('delivery.edit', ['delivery' => $row])
+                ->route('delivery.show', ['delivery' => $row->id])
         ];
     }
-
-    /*
-    public function actionRules($row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
 }
