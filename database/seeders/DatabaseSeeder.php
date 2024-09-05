@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'customer']);
         $this->call([
             FoodSeeder::class,
+            OrderSeeder::class,
+            DeliverySeeder::class
         ]);
     }
 }

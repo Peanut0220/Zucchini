@@ -17,7 +17,8 @@ class DeliveryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'status' => $this->faker->randomElement(['pending','delivered']),
+            'order_id' => '1'
         ];
     }
 }
