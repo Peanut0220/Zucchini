@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Delivery;
+
 use App\Models\Food;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
