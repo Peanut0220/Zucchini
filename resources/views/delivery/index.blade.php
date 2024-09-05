@@ -1,3 +1,3 @@
-@foreach($deliveries as $delivery)
-    {{$delivery->name}}
-@endforeach
+<x-app-layout>
+    <livewire:delivery-table/>
+</x-app-layout>
