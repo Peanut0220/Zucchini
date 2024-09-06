@@ -50,6 +50,14 @@ class DeliveryController extends Controller
     }
 
 
+    public function update(StoreDeliveryRequest $request, Delivery $delivery)
+    {
+        $delivery->update($request->all());
+
+        return redirect()->route('delivery.index');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */

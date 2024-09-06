@@ -92,7 +92,7 @@ final class DeliveryTable extends PowerGridComponent
             Button::add('show')
                 ->slot('View')
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->route('delivery.show', ['delivery' => $row->id])
+                ->route('delivery.edit', ['delivery' => $row->id])
         ];
     }
 }

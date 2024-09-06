@@ -24,7 +24,7 @@
 
                 <!-- Edit Status Form -->
                 <div class="sm:col-span-2">
-                    <form action="{{ route('delivery.edit', $delivery) }}" method="POST">
+                    <form action="{{ route('delivery.update', $delivery) }}" method="POST">
                         @csrf
                         @method('PATCH')
 
