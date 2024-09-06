@@ -22,9 +22,6 @@ Route::get('/', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
-Route::get('/cusDelivery', function () {
-    return view('delivery.cusShow');
-})->name('cusDelivery');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,10 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/food', FoodController::class);
     Route::resource('/delivery', DeliveryController::class);
+    Route::get('/cusShow', [DeliveryController::class, 'cusShow'])->name('cusShow');
 
 
 });
 
-Route::get('/test',[FoodController::class,'test'])->name('test');
+Route::get('/test', [FoodController::class, 'test'])->name('test');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
