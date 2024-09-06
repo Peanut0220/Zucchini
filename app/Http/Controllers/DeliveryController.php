@@ -66,7 +66,7 @@ class DeliveryController extends Controller
         //
     }
 
-    public function cusShow(){
-        return view('delivery.cusShow');
+    public function cusShow(Delivery $delivery){
+        return view('delivery.cusShow', compact('delivery'));
     }
 }
