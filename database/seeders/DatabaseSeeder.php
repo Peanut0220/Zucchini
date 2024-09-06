@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             FoodSeeder::class,
             OrderSeeder::class,
             DeliverySeeder::class
+
+
         ]);
     }
 }

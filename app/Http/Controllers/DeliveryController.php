@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Http\Requests\UpdateDeliveryRequest;
+use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
 {
@@ -13,7 +14,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        return view('delivery.index',['deliveries'=>Delivery::all()]);
     }
 
     /**
@@ -21,7 +22,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        //
+        return view('delivery.create');
     }
 
     /**
@@ -37,7 +38,7 @@ class DeliveryController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        //
+        return view('delivery.show', compact('delivery'));
     }
 
     /**
@@ -45,16 +46,17 @@ class DeliveryController extends Controller
      */
     public function edit(Delivery $delivery)
     {
-        //
+        return view('delivery.edit', compact('delivery'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateDeliveryRequest $request, Delivery $delivery)
+
+    public function update(StoreDeliveryRequest $request, Delivery $delivery)
     {
-        //
+        $delivery->update($request->all());
+
+        return redirect()->route('delivery.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -62,5 +64,9 @@ class DeliveryController extends Controller
     public function destroy(Delivery $delivery)
     {
         //
+    }
+
+    public function cusShow(Delivery $delivery){
+        return view('delivery.cusShow', compact('delivery'));
     }
 }
