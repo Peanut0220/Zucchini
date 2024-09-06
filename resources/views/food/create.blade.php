@@ -54,54 +54,54 @@
             </div>
         </div>
     </section>
+    <style>
+        /* Ensure the image fits within the container without leaving white space */
+        #file-preview {
+            width: 100%;
+            height: auto;
+            object-fit: cover; /* Adjust to cover the entire dropzone without stretching */
+        }
 
-    <!-- Image Preview and Validation Script -->
+        /* Ensure label spans the container size properly */
+        label[for="dropzone-file"] {
+            width: 100%; /* Use full container width */
+            height: auto;
+            padding: 0;
+            display: block;
+        }
+    </style>
+
     <script>
         document.getElementById('dropzone-file').addEventListener('change', function(event) {
             const fileInput = event.target;
             const file = fileInput.files[0];
             const preview = document.getElementById('file-preview');
             const uploadWord = document.getElementById('uploadWord');
-            const label = fileInput.closest('label'); // Get the dropzone container
+            const label = fileInput.closest('label');
 
-            // Allowed image file types
             const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
 
-            // Check if the uploaded file is an image
             if (file && allowedTypes.includes(file.type)) {
                 const reader = new FileReader();
-
                 reader.onload = function(e) {
-                    // Show the image preview inside the dropzone
                     preview.src = e.target.result;
                     preview.classList.remove('hidden');
-
-                    // Hide the text and upload section
                     uploadWord.style.display = 'none';
 
-                    // Create a temporary image to calculate its size
+                    // Adjust label to maintain full width without extra white space
                     const tempImage = new Image();
                     tempImage.src = e.target.result;
-
                     tempImage.onload = function() {
-                        const imageWidth = tempImage.width;
-                        const imageHeight = tempImage.height;
-
-                        // Resize the dropzone container to fit the image size
-                        label.style.width = imageWidth + 'px';
-                        label.style.height = imageHeight + 'px';
+                        label.style.width = '100%';  // Ensure the label uses the full width
+                        label.style.height = 'auto'; // Adjust the height dynamically
                     };
                 };
-
                 reader.readAsDataURL(file);
             } else {
-                // Show an alert if the file is not an image
-                alert('Please upload a valid image file (JPG, PNG, GIF, SVG).');
+                alert('Please upload a valid image file.');
                 uploadWord.style.display = 'block';
-                fileInput.value = ''; // Clear the file input
-                preview.classList.add('hidden'); // Ensure preview stays hidden
-
-                // Reset the dropzone container size
+                fileInput.value = '';
+                preview.classList.add('hidden');
                 label.style.width = '100%';
                 label.style.height = 'auto';
             }

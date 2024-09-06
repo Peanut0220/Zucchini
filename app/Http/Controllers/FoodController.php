@@ -65,7 +65,18 @@ class FoodController extends Controller
      */
     public function update(StoreFoodRequest $request, Food $food)
     {
-        $food->update($request->all());
+        $file = $request->hasFile('thumbnail');
+        if ($file) {
+            $newFile = $request->file('thumbnail');
+            $file_path = $newFile->store('images');
+            $food->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'image_path' => $file_path
+            ]);
+
+        }
         return redirect()->route('food.index');
     }
 
