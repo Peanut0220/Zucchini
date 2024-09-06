@@ -17,7 +17,10 @@ class CartDetailsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'food_id' => 1,
+            'cart_id' => 1,
+            'quantity' => 1,
+            'subtotal' => 100
         ];
     }
 }

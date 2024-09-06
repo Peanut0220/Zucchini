@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
+            $table->decimal('total');
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->timestamps();
         });
     }

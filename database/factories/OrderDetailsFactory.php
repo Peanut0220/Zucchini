@@ -17,7 +17,12 @@ class OrderDetailsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'food_id' => '1',
+            'order_id' => '1',
+            'price' => 1,
+            'quantity' => $this->faker->numberBetween(1, 10),
+            'subtotal' => 10
+
         ];
     }
 }

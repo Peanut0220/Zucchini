@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->string('category');
             $table->decimal('price');
             $table->string('image_path');
             $table->softDeletes();

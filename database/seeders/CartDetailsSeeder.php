@@ -12,6 +12,6 @@ class CartDetailsSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\CartDetails::factory(10)->create();
     }
 }

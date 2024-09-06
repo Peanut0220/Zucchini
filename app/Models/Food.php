@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Food extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['name', 'description','price','image_path'];
+    protected $fillable = ['name', 'description','category','price','image_path'];
 }

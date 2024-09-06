@@ -16,6 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Food::class)->constrained();
             $table->foreignIdFor(\App\Models\Order::class)->constrained();
+            $table->decimal('price');
+            $table->smallInteger('quantity');
+            $table->decimal('subtotal');
             $table->timestamps();
         });
     }
