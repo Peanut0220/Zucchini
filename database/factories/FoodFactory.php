@@ -19,7 +19,8 @@ class FoodFactory extends Factory
         return [
             'name' => $this->faker->text(30),
             'description' => $this->faker->text(100),
-            'price' => 1.1
+            'price' => 1.1,
+            'image_path' => '/'
 
         ];
     }
