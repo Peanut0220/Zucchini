@@ -1,3 +1,4 @@
+@if(Auth::check() && Auth::user()->hasRole('admin'))
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -38,3 +39,4 @@
 <script src="./node_modules/preline/dist/preline.js"></script>
 </body>
 </html>
+@endif
