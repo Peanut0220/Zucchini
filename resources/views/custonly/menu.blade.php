@@ -31,7 +31,7 @@
                                         <select name="category" class="border rounded px-4 py-2 w-full">
                                             <option value="">All Categories</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                <option value="{{ $category->category_id }}" {{ request('category') == $category->category_id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
