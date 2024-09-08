@@ -17,12 +17,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-Route::get('/welcome', function () {
-    return view('welcome');
+    // Check if the user is authenticated
+    if (auth()->check()) {
+        // Redirect authenticated users to the 'home' page (or any other page)
+        return redirect()->route('home');
+    }
+    // Show the welcome page for guests
+    return view('guestonly.welcome');
 })->name('welcome');
 
+Route::get('/welcome', function () {
+    // Check if the user is authenticated
+    if (auth()->check()) {
+        // Redirect authenticated users to the 'home' page (or any other page)
+        return redirect()->route('home');
+    }
+    // Show the welcome page for guests
+    return view('guestonly.welcome');
+})->name('welcome');
+
+// Define your home route (or wherever authenticated users should go)
+Route::get('/home', function () {
+    return view('home'); // or return to any specific controller method or view
+})->name('home');
+
+// Routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -31,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
 });
 
+// Admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    // Admin routes go here
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
@@ -42,6 +61,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-Route::get('/test', [FoodController::class, 'test'])->name('test');
 
 require __DIR__ . '/auth.php';
