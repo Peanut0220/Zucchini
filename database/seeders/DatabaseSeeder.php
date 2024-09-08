@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\CartDetails;
+use App\Models\Category;
 use App\Models\OrderDetails;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+
+
         // Create roles
         Role::create(['name' => 'customer']);
         Role::create(['name' => 'admin']);
@@ -39,6 +42,7 @@ class DatabaseSeeder extends Seeder
 
         // Call other seeders
         $this->call([
+            CategorySeeder::class,
             FoodSeeder::class,
             OrderSeeder::class,
             DeliverySeeder::class,
@@ -46,5 +50,7 @@ class DatabaseSeeder extends Seeder
             CartSeeder::class,
             CartDetailsSeeder::class
         ]);
+
+
     }
 }

@@ -17,7 +17,7 @@ class OrderDetailsFactory extends Factory
     public function definition(): array
     {
         return [
-            'food_id' => '1',
+            'food_id' => 'F00001',
             'order_id' => '1',
             'price' => 1,
             'quantity' => $this->faker->numberBetween(1, 10),
@@ -25,4 +25,6 @@ class OrderDetailsFactory extends Factory
 
         ];
     }
+
+
 }

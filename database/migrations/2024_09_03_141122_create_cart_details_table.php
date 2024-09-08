@@ -14,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('cart_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Food::class)->constrained();
+            $table->string('food_id'); // Match the type of the foreign key
+            $table->foreign('food_id')->references('food_id')->on('food')->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Cart::class)->constrained();
             $table->smallInteger('quantity');
             $table->decimal('subtotal');

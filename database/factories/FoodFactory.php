@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Food;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +18,25 @@ class FoodFactory extends Factory
     public function definition(): array
     {
         return [
+            'food_id' => $this->generateFoodId(),
             'name' => $this->faker->text(30),
             'description' => $this->faker->text(100),
-            'category' => $this->faker->text(30),
-            'price' => 1.1,
-            'image_path' => '/'
-
+            'category_id' => $this->faker->randomElement(['1', '2', '3', '4']),
+            'price' => $this->faker->randomFloat(2, 1, 100),
+            'image_path' => $this->faker->imageUrl()
         ];
+    }
+
+    /**
+     * Generate a unique food ID.
+     *
+     * @return string
+     */
+    private function generateFoodId(): string
+    {
+        static $counter = 1;
+        $prefix = 'F';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

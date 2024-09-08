@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('food', function (Blueprint $table) {
-            $table->string('food_id')->primary(); // Custom ID
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->string('category_id');
-            $table->decimal('price', 8, 2); // Specify precision and scale
-            $table->string('image_path');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('food');
+        Schema::dropIfExists('categories');
     }
 };

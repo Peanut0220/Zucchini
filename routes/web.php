@@ -53,8 +53,6 @@ Route::get('/welcome', function () {
     return view('guestonly.welcome');
 })->name('welcome');
 
-
-
 // Routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -65,9 +63,7 @@ Route::middleware('auth')->group(function () {
         return view('custonly.home');
     })->name('home');
 
-    Route::get('/menu', function () {
-        return view('custonly.menu');
-    })->name('menu');
+    Route::get('/menu', [FoodController::class, 'customerMenu'])->name('menu');
 
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
 });
@@ -78,10 +74,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return view('adminonly.dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::resource('/food', FoodController::class);
+    Route::resource('/food', FoodController::class); // Admin food management
     Route::resource('/delivery', DeliveryController::class);
 });
-
-
 
 require __DIR__ . '/auth.php';

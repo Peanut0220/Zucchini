@@ -13,12 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Food::class)->constrained();
-            $table->foreignIdFor(\App\Models\Order::class)->constrained();
-            $table->decimal('price');
+            $table->id(); // Auto-incrementing primary key
+            $table->string('food_id'); // Match the type of the foreign key
+            $table->foreign('food_id')->references('food_id')->on('food')->onDelete('cascade');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->decimal('price', 8, 2);
             $table->smallInteger('quantity');
-            $table->decimal('subtotal');
+            $table->decimal('subtotal', 8, 2);
             $table->timestamps();
         });
     }
