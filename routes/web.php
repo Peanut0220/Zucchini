@@ -19,8 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     // Check if the user is authenticated
     if (auth()->check()) {
-        // Redirect authenticated users to the 'home' page (or any other page)
-        return redirect()->route('home');
+        // Check if the authenticated user has the 'admin' role
+        if (auth()->user()->hasRole('admin')) {
+            // Redirect admin users to the 'dashboard' page
+            return redirect()->route('dashboard');
+        }
+        // Check if the authenticated user has the 'customer' role
+        elseif (auth()->user()->hasRole('customer')) {
+            // Redirect customer users to the 'home' page
+            return redirect()->route('home');
+        }
     }
     // Show the welcome page for guests
     return view('guestonly.welcome');
@@ -29,17 +37,23 @@ Route::get('/', function () {
 Route::get('/welcome', function () {
     // Check if the user is authenticated
     if (auth()->check()) {
-        // Redirect authenticated users to the 'home' page (or any other page)
-        return redirect()->route('home');
+        // Check if the authenticated user has the 'admin' role
+        if (auth()->user()->hasRole('admin')) {
+            // Redirect admin users to the 'dashboard' page
+            return redirect()->route('dashboard');
+        }
+        // Check if the authenticated user has the 'customer' role
+        elseif (auth()->user()->hasRole('customer')) {
+            // Redirect customer users to the 'home' page
+            return redirect()->route('home');
+        }
     }
-    // Show the welcome page for guests
+
+    // If the user is not authenticated or doesn't have the specified role, show the guest welcome page
     return view('guestonly.welcome');
 })->name('welcome');
 
-// Define your home route (or wherever authenticated users should go)
-Route::get('/home', function () {
-    return view('home'); // or return to any specific controller method or view
-})->name('home');
+
 
 // Routes for authenticated users
 Route::middleware('auth')->group(function () {
@@ -47,13 +61,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/home', function () {
+        return view('custonly.home');
+    })->name('home');
+
+    Route::get('/menu', function () {
+        return view('custonly.menu');
+    })->name('menu');
+
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
 });
 
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('adminonly.dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::resource('/food', FoodController::class);

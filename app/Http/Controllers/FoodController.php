@@ -13,7 +13,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view('food.index', ['foods' => Food::all()]);
+        return view('adminonly.food.index', ['foods' => Food::all()]);
     }
 
     /**
@@ -21,7 +21,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('food.create');
+        return view('adminonly.food.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class FoodController extends Controller
             ]);
 
         }
-        return redirect()->route('food.index');
+        return redirect()->route('adminonly.food.index');
     }
 
     /**
@@ -49,7 +49,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        return view('food.show', compact('food'));
+        return view('adminonly.food.show', compact('food'));
     }
 
     /**
@@ -57,7 +57,7 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        return view('food.edit', compact('food'));
+        return view('adminonly.food.edit', compact('food'));
     }
 
     /**
@@ -77,7 +77,7 @@ class FoodController extends Controller
             ]);
 
         }
-        return redirect()->route('food.index');
+        return redirect()->route('adminonly.food.index');
     }
 
     /**
@@ -86,7 +86,7 @@ class FoodController extends Controller
     public function destroy(Food $food)
     {
         $food->delete();
-        return redirect()->route('food.index');
+        return redirect()->route('adminonly.food.index');
     }
 
     public function test()

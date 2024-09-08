@@ -14,7 +14,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        return view('delivery.index',['deliveries'=>Delivery::all()]);
+        return view('adminonly.delivery.index',['deliveries'=>Delivery::all()]);
     }
 
     /**
@@ -22,7 +22,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        return view('delivery.create');
+        return view('adminonly.delivery.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class DeliveryController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        return view('delivery.show', compact('delivery'));
+        return view('adminonly.delivery.show', compact('delivery'));
     }
 
     /**
@@ -46,7 +46,7 @@ class DeliveryController extends Controller
      */
     public function edit(Delivery $delivery)
     {
-        return view('delivery.edit', compact('delivery'));
+        return view('adminonly.delivery.edit', compact('delivery'));
     }
 
 
@@ -67,6 +67,6 @@ class DeliveryController extends Controller
     }
 
     public function cusShow(Delivery $delivery){
-        return view('delivery.cusShow', compact('delivery'));
+        return view('custonly.delivery.cusShow', compact('delivery'));
     }
 }
