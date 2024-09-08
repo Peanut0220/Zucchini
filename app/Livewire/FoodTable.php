@@ -52,7 +52,7 @@ final class FoodTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('id')
+            ->add('food_id')
             ->add('name')
             ->add('description')
             ->add('price')
@@ -62,7 +62,7 @@ final class FoodTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id'),
+            Column::make('Id', 'food_id'),
 
             Column::make('Name', 'name')
                 ->sortable()

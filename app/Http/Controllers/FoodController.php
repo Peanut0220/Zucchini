@@ -46,7 +46,9 @@ class FoodController extends Controller
 
     public function create()
     {
-        return view('adminonly.food.create');
+        $categories = Category::all(); // Fetch all categories
+
+        return view('adminonly.food.create', compact('categories')); // Pass categories to view
     }
 
     /**
@@ -63,11 +65,12 @@ class FoodController extends Controller
         Food::create([
             'name' => $request->name,
             'description' => $request->description,
+            'category_id' => $request->category,
             'price' => $request->price,
-            'image_path' => $filePath,
+            'image_path' => $filePath
         ]);
 
-        return redirect()->route('adminonly.food.index');
+        return redirect()->route('food.index');
     }
 
     /**

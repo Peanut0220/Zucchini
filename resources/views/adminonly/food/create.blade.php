@@ -28,10 +28,21 @@
                         <x-input-error class="mt-2" :messages="$errors->get('price')" />
                     </div>
 
-                    <x-input-label for="dropzone-file" :value="__('Picture')" class="mb-2"/>
-                    <!-- Image Upload and Preview -->
-                    <div class="flex items-center justify-center w-full">
+                    <!-- Category Selection -->
+                    <div class="w-full mb-3">
+                        <x-input-label for="category" :value="__('Category')" />
+                        <select id="category" name="category" class="mt-1 block w-full border rounded px-4 py-2" required>
+                            <option value="">Select a Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('category')" />
+                    </div>
 
+                    <!-- Image Upload and Preview -->
+                    <x-input-label for="dropzone-file" :value="__('Picture')" class="mb-2"/>
+                    <div class="flex items-center justify-center w-full">
                         <label for="dropzone-file" class="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6" id="uploadWord">
                                 <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -41,30 +52,26 @@
                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
                             </div>
                             <input id="dropzone-file" name="thumbnail" type="file" accept="image/*" class="hidden" />
-
-                            <!-- Image Preview INSIDE dropzone -->
                             <img id="file-preview" class="hidden rounded-lg" src="" alt="Image Preview">
                         </label>
-
                     </div>
                     <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
+
                     <!-- Submit Button -->
                     <x-create-button type="submit" class="mt-3">Add</x-create-button>
                 </form>
             </div>
         </div>
     </section>
+
     <style>
-        /* Ensure the image fits within the container without leaving white space */
         #file-preview {
             width: 100%;
             height: auto;
-            object-fit: cover; /* Adjust to cover the entire dropzone without stretching */
+            object-fit: cover;
         }
-
-        /* Ensure label spans the container size properly */
         label[for="dropzone-file"] {
-            width: 100%; /* Use full container width */
+            width: 100%;
             height: auto;
             padding: 0;
             display: block;
@@ -88,12 +95,11 @@
                     preview.classList.remove('hidden');
                     uploadWord.style.display = 'none';
 
-                    // Adjust label to maintain full width without extra white space
                     const tempImage = new Image();
                     tempImage.src = e.target.result;
                     tempImage.onload = function() {
-                        label.style.width = '100%';  // Ensure the label uses the full width
-                        label.style.height = 'auto'; // Adjust the height dynamically
+                        label.style.width = '100%';
+                        label.style.height = 'auto';
                     };
                 };
                 reader.readAsDataURL(file);
