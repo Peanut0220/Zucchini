@@ -17,10 +17,19 @@ class CartDetailsFactory extends Factory
     public function definition(): array
     {
         return [
+            'cartDetail_id' => $this->generateCartDetailId(),
             'food_id' => 'F00001',
-            'cart_id' => '1',
+            'cart_id' => 'C00001',
             'quantity' => 1,
             'subtotal' => 100
         ];
+    }
+
+    private function generateCartDetailId(): string
+    {
+        static $counter = 1;
+        $prefix = 'CD';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

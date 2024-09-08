@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('food_id')->primary(); // Custom ID
             $table->string('name');
             $table->string('description');
-            $table->string('category_id');
+            $table->string('category_id'); // Match the type of the foreign key
+            $table->foreign('category_id')->references('category_id')->on('categories')->onDelete('cascade');
             $table->decimal('price', 8, 2); // Specify precision and scale
             $table->string('image_path');
             $table->softDeletes();

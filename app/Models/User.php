@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,13 +14,16 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'phone',
@@ -45,4 +49,23 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->user_id)) {
+                $model->user_id = self::generateUniqueId();
+            }
+        });
+    }
+
+    private static function generateUniqueId()
+    {
+        $prefix = 'U';
+        $lastId = self::orderBy('user_id','desc')->first();
+        $number = $lastId ? (int)substr($lastId->user_id, 1) + 1 : 1;
+        return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
+    }
 }

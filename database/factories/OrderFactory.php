@@ -17,10 +17,19 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => '1',
+            'order_id' => $this->generateOrderId(),
+            'user_id' => 'U00001',
             'final' => 100,
             'total' => 100,
             'discount' => 0
         ];
+    }
+
+    private function generateOrderId(): string
+    {
+        static $counter = 1;
+        $prefix = 'OR';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

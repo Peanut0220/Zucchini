@@ -70,7 +70,7 @@ class FoodController extends Controller
             'image_path' => $filePath
         ]);
 
-        return redirect()->route('food.index');
+        return redirect()->route('food.index')->with('success', 'Food created successfully!');
     }
 
     /**

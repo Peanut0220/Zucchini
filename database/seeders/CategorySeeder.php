@@ -14,17 +14,29 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::factory()->create([
+            'category_id' => $this->generateCategoryId(),
             'name' => 'Main Dish'
         ]);
         Category::factory()->create([
+            'category_id' => $this->generateCategoryId(),
             'name' => 'Beverage'
         ]);
         Category::factory()->create([
+            'category_id' => $this->generateCategoryId(),
             'name' => 'Side Dish'
         ]);
         Category::factory()->create([
+            'category_id' => $this->generateCategoryId(),
             'name' => 'Snack'
         ]);
 
+    }
+
+    private function generateCategoryId(): string
+    {
+        static $counter = 1;
+        $prefix = 'CG';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

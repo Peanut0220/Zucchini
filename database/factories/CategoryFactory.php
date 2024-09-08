@@ -20,4 +20,6 @@ class CategoryFactory extends Factory
 
         ];
     }
+
+
 }

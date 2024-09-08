@@ -17,13 +17,22 @@ class OrderDetailsFactory extends Factory
     public function definition(): array
     {
         return [
+            'orderDetail_id' => $this->generateOrderDetailId(),
             'food_id' => 'F00001',
-            'order_id' => '1',
+            'order_id' => 'OR00001',
             'price' => 1,
             'quantity' => $this->faker->numberBetween(1, 10),
             'subtotal' => 10
 
         ];
+    }
+
+    private function generateOrderDetailId(): string
+    {
+        static $counter = 1;
+        $prefix = 'OD';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 
 

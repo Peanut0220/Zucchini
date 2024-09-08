@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
+            $table->string('delivery_id')->primary(); // Custom ID
             $table->string('status');
-            $table->foreignIdFor(\App\Models\Order::class)->constrained();
+            $table->string('rider');
+            $table->string('order_id'); // Match the type of the foreign key
+            $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });
     }

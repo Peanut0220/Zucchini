@@ -50,7 +50,7 @@ final class DeliveryTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('id')
+            ->add('delivery_id')
             ->add('status')
             ->add('order_id')
             ->add('created_at')
@@ -60,7 +60,7 @@ final class DeliveryTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id'),
+            Column::make('Id', 'delivery_id'),
 
             Column::make('Status', 'status')
                 ->sortable()
@@ -92,7 +92,7 @@ final class DeliveryTable extends PowerGridComponent
             Button::add('show')
                 ->slot('View')
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->route('delivery.edit', ['delivery' => $row->id])
+                ->route('delivery.edit', ['delivery' => $row->delivery_id])
         ];
     }
 }

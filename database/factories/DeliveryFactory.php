@@ -17,9 +17,18 @@ class DeliveryFactory extends Factory
     public function definition(): array
     {
         return [
-
+            'delivery_id' => $this->generateDeliveryId(),
             'status' => $this->faker->randomElement(['pending', 'delivered', 'preparing', 'delivering']),
-            'order_id' => '1'
+            'rider'=> $this->faker->randomElement(['Foodpanda', 'Grab', 'ShopeeFood', 'Lalamove']),
+            'order_id' => 'OR00001'
         ];
+    }
+
+    private function generateDeliveryId(): string
+    {
+        static $counter = 1;
+        $prefix = 'D';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

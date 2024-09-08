@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->string('order_id')->primary(); // Custom ID
+            $table->string('user_id'); // Match the type of the foreign key
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->decimal('final');
             $table->decimal('total');
             $table->decimal('discount');

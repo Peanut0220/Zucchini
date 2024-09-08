@@ -34,7 +34,7 @@
                         <select id="category" name="category" class="mt-1 block w-full border rounded px-4 py-2" required>
                             <option value="">Select a Category</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->category_id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                         <x-input-error class="mt-2" :messages="$errors->get('category')" />

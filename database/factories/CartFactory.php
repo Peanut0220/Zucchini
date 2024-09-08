@@ -17,8 +17,17 @@ class CartFactory extends Factory
     public function definition(): array
     {
         return [
+            'cart_id' => $this->generateCartId(),
             'total' => 0,
-            'user_id' => 1
+            'user_id' => 'U00001'
         ];
+    }
+
+    private function generateCartId(): string
+    {
+        static $counter = 1;
+        $prefix = 'C';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

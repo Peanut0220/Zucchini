@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create roles
+        Role::create(['name' => 'customer']);
+        Role::create(['name' => 'admin']);
+
         // Create multiple users
         \App\Models\User::factory(10)->create();
 
@@ -27,10 +31,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-
-        // Create roles
-        Role::create(['name' => 'customer']);
-        Role::create(['name' => 'admin']);
 
         // Assign admin role to the test user
         $testUser->assignRole('admin');

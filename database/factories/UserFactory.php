@@ -24,6 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => $this->generateUserId(),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => '01111111111',
@@ -41,5 +42,13 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    private function generateUserId(): string
+    {
+        static $counter = 1;
+        $prefix = 'U';
+        $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
+        return $id;
     }
 }

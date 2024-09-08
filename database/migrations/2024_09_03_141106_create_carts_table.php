@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->string('cart_id')->primary(); // Custom ID
             $table->decimal('total');
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->string('user_id'); // Match the type of the foreign key
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -13,10 +13,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cart_details', function (Blueprint $table) {
-            $table->id();
+            $table->string('cartDetail_id')->primary(); // Custom ID
             $table->string('food_id'); // Match the type of the foreign key
             $table->foreign('food_id')->references('food_id')->on('food')->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Cart::class)->constrained();
+            $table->string('cart_id'); // Match the type of the foreign key
+            $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
             $table->smallInteger('quantity');
             $table->decimal('subtotal');
             $table->timestamps();

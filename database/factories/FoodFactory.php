@@ -21,9 +21,9 @@ class FoodFactory extends Factory
             'food_id' => $this->generateFoodId(),
             'name' => $this->faker->text(30),
             'description' => $this->faker->text(100),
-            'category_id' => $this->faker->randomElement(['1', '2', '3', '4']),
+            'category_id' => $this->faker->randomElement(['CG00001', 'CG00002', 'CG00003', 'CG00004']),
             'price' => $this->faker->randomFloat(2, 1, 100),
-            'image_path' => $this->faker->imageUrl()
+            'image_path' => '/images/JQflGUWZuExtCu7qfziyxd5Q4VhrmFqcXpsssTKk.jpg'
         ];
     }
 
