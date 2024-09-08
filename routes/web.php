@@ -69,7 +69,7 @@ Route::middleware(['auth','verified'])->group(function () {
 });
 
 // Admin routes
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin','verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('adminonly.dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');

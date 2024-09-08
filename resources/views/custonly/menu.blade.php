@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
+            <section class=" py-8 antialiased dark:bg-gray-900 md:py-12">
                 <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
                     <!-- Heading & Filters -->
                     <div class="mb-4 space-y-4 sm:flex sm:space-y-0 md:mb-8">
