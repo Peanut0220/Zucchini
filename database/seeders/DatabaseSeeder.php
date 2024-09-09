@@ -47,8 +47,6 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             DeliverySeeder::class,
             OrderDetailsSeeder::class,
-            CartSeeder::class,
-            CartDetailsSeeder::class
         ]);
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailsController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodController;
@@ -66,6 +67,8 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/menu', [FoodController::class, 'customerMenu'])->name('menu');
     Route::get('/foodDetail/{food}', [FoodController::class, 'showCus'])->name('foodDetail');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/add/{food_id}', [CartController::class, 'addToCart'])->name('addToCart');
 
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
     Route::get('/', [CartDetailsController::class, 'cusShow'])->name('addToCart');

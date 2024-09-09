@@ -16,6 +16,7 @@ return new class extends Migration
             $table->decimal('total');
             $table->string('user_id'); // Match the type of the foreign key
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

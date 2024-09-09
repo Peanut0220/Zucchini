@@ -21,7 +21,8 @@
                             RM {{ $food->price }}
                         </p>
                     </div>
-
+                    <form action="{{ route('addToCart', $food->food_id) }}" method="POST" class="mt-4">
+                        @csrf
                     <!-- Quantity Selector -->
                     <div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
                         <div class="flex items-center">
@@ -33,12 +34,13 @@
 
                     <!-- Add to Cart Button -->
                     <div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-                        <form action="{{ route('addToCart', $food->food_id) }}" method="POST" class="mt-4">
-                            @csrf
-                            <input type="hidden" id="food-quantity" name="quantity" value="1">
+
+
+
                             <x-create-button>Add to Cart</x-create-button>
-                        </form>
+
                     </div>
+                    </form>
 
                     <hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 

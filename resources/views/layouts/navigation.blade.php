@@ -24,7 +24,7 @@
 @auth
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <a href="#" class="mr-4 ">
+                    <a href="{{ route('cart') }}" class="mr-4 ">
 
 
                         <!-- Cart Icon (Heroicons shopping-cart) -->
