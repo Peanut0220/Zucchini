@@ -76,7 +76,12 @@ class FoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Food $food)
+    public function showCus(Food $food)
+    {
+        return view('custonly.foodDetail', compact('food'));
+    }
+
+    public function showAdmin(Food $food)
     {
         return view('adminonly.food.show', compact('food'));
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartDetailsController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ProfileController;
@@ -64,8 +65,10 @@ Route::middleware(['auth','verified'])->group(function () {
     })->name('home');
 
     Route::get('/menu', [FoodController::class, 'customerMenu'])->name('menu');
+    Route::get('/foodDetail/{food}', [FoodController::class, 'showCus'])->name('foodDetail');
 
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
+    Route::get('/', [CartDetailsController::class, 'cusShow'])->name('addToCart');
 });
 
 // Admin routes

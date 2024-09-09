@@ -59,7 +59,9 @@
                                         RM {{ $food->price }}
                                     </p>
                                     <div class="mt-4 flex items-center justify-between gap-4">
-                                        <x-create-button>Add to Cart</x-create-button>
+                                        <a href="{{ route('foodDetail', ['food' => $food->food_id]) }}">
+                                            <x-create-button>Add to Cart</x-create-button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
