@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCartRequest;
 use App\Models\CartDetails;
 use App\Models\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -16,13 +17,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('custonly.cart');
-    }
-
-    public function addToCart(Request $request, $food_id)
-    {
-        // Find the food item
-        $food = Food::findOrFail($food_id);
+        // Retrieve the current user
+        $user = Auth::user();
 
         // Check if the user already has an active cart
         $userId = auth()->user()->user_id; // Assuming 'user_id' is a custom ID
@@ -36,6 +32,28 @@ class CartController extends Controller
                 'total' => 0, // Total will be updated later
             ]);
         }
+
+        // Fetch the user's cart, along with cart details and the associated food items
+        $cart = Cart::where('user_id', $user->user_id)
+            ->with('cartDetails.food') // Eager load the food items in cart details
+            ->first();
+
+
+        // Pass the cart to the view
+        return view('custonly.cart', [
+            'cart' => $cart,
+        ]);
+    }
+
+    public function addToCart(Request $request, $food_id)
+    {
+        // Find the food item
+        $food = Food::findOrFail($food_id);
+
+        // Check if the user already has an active cart
+        $userId = auth()->user()->user_id; // Assuming 'user_id' is a custom ID
+        $cart = Cart::where('user_id', $userId)->first();
+
 
         // Check if the food is already in the cart details
         $cartDetail = CartDetails::where('cart_id', $cart->cart_id)
@@ -102,10 +120,36 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCartRequest $request, Cart $cart)
+    public function update(Request $request)
     {
-        //
+        $cartDetail = CartDetails::where('cartDetail_id', $request->input('cartDetail_id'))->first();
+
+        if (!$cartDetail) {
+            return redirect()->back()->with('error', 'Item not found.');
+        }
+
+        $action = $request->input('action');
+        $newQuantity = $request->input('quantity');
+
+        if ($action === 'delete' || $newQuantity == 0) {
+            $cartDetail->delete();
+        } elseif ($action !== 'delete' && $newQuantity > 0) {
+            $cartDetail->quantity = $newQuantity;
+            $cartDetail->subtotal = $newQuantity * $cartDetail->food->price;
+            $cartDetail->save();
+        }
+
+        $cart = Cart::where('cart_id', $cartDetail->cart_id)->first();
+        if ($cart) {
+            $cart->total = CartDetails::where('cart_id', $cart->cart_id)->sum('subtotal');
+            $cart->save();
+        }
+
+        return redirect()->route('cart')->with('success', 'Cart updated successfully.');
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.

@@ -21,6 +21,7 @@ class OrderFactory extends Factory
             'user_id' => 'U00001',
             'final' => 100,
             'total' => 100,
+            'tax' => 0,
             'discount' => 0
         ];
     }

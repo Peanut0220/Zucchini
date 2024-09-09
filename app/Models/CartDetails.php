@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartDetails extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $primaryKey = 'cartDetail_id';
     public $incrementing = false;
@@ -25,6 +25,18 @@ class CartDetails extends Model
                 $model->cartDetail_id = self::generateUniqueId();
             }
         });
+    }
+
+    // Define the relationship with Cart
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class, 'cart_id', 'cart_id');
+    }
+
+    // Define the relationship with Food
+    public function food()
+    {
+        return $this->belongsTo(Food::class, 'food_id', 'food_id');
     }
 
     private static function generateUniqueId()

@@ -27,6 +27,12 @@ class Cart extends Model
         });
     }
 
+    // Define the relationship with CartDetails
+    public function cartDetails()
+    {
+        return $this->hasMany(CartDetails::class, 'cart_id', 'cart_id');
+    }
+
     private static function generateUniqueId()
     {
         $prefix = 'C';

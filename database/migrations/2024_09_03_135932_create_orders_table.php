@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->decimal('final');
             $table->decimal('total');
+            $table->decimal('tax');
             $table->decimal('discount');
             $table->timestamps();
         });

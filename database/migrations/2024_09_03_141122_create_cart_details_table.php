@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
             $table->smallInteger('quantity');
             $table->decimal('subtotal');
-            $table->softDeletes();
+
             $table->timestamps();
         });
     }

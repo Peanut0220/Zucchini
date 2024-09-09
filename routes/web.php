@@ -69,9 +69,9 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/foodDetail/{food}', [FoodController::class, 'showCus'])->name('foodDetail');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('/cart/add/{food_id}', [CartController::class, 'addToCart'])->name('addToCart');
-
+    Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
-    Route::get('/', [CartDetailsController::class, 'cusShow'])->name('addToCart');
+
 });
 
 // Admin routes
