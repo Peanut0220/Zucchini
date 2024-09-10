@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Cart extends Model
 {
@@ -32,6 +33,8 @@ class Cart extends Model
     {
         return $this->hasMany(CartDetails::class, 'cart_id', 'cart_id');
     }
+
+
 
     private static function generateUniqueId()
     {

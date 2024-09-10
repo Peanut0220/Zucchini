@@ -5,10 +5,20 @@
         </h2>
     </x-slot>
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                 <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-                    <div class="space-y-6">
+                    @if($cart->cartDetails->count() > 0)
+                        <form method="POST" action="{{ route('cart.clear') }}">
+                            @csrf
+                            @method('DELETE')
+                            <x-create-button class="mr-auto ml-auto bg-red-700">Clear All</x-create-button>
+                        </form>
+                    @endif
+
+
+                    <div class="space-y-6 mt-2">
                         @forelse($cart->cartDetails as $cartDetail)
                             <div
                                 class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
@@ -65,6 +75,17 @@
                                         <a href="{{ route('food.show', $cartDetail->food->food_id) }}"
                                            class="text-base font-medium text-gray-900 hover:underline dark:text-white">{{ $cartDetail->food->name }}</a>
                                     </div>
+
+                                    <!-- Delete Button -->
+                                    <form method="POST" action="{{ route('cart.delete', $cartDetail->cartDetail_id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="ml-4 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-red-300 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-100 dark:border-red-600 dark:bg-red-700 dark:hover:bg-red-600 dark:focus:ring-red-700">
+                                            <svg class="h-4 w-4 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         @empty

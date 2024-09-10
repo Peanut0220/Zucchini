@@ -30,8 +30,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        // Create specific test user
+        $testUser2 = \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test2@example.com',
+        ]);
 
 
+        $testUser2->assignRole('customer');
         // Assign admin role to the test user
         $testUser->assignRole('admin');
 

@@ -122,41 +122,84 @@ class CartController extends Controller
      */
     public function update(Request $request)
     {
+        // Find the cart item to be updated
         $cartDetail = CartDetails::where('cartDetail_id', $request->input('cartDetail_id'))->first();
 
         if (!$cartDetail) {
             return redirect()->back()->with('error', 'Item not found.');
         }
 
+        // Fetch the cart the item belongs to
+        $cart = Cart::where('cart_id', $cartDetail->cart_id)->first();
         $action = $request->input('action');
         $newQuantity = $request->input('quantity');
 
+        // Check if the action is 'delete' or if the quantity is set to zero
         if ($action === 'delete' || $newQuantity == 0) {
+            // Delete the item first
             $cartDetail->delete();
+
+            // Recalculate the cart total after the item is deleted
+            if ($cart) {
+                $cart->total = CartDetails::where('cart_id', $cart->cart_id)->sum('subtotal');
+                $cart->save();
+            }
+
+            // Add logging to confirm the deletion and update
+            \Log::info('Item deleted and cart total updated: ', ['cart_id' => $cart->cart_id, 'new_total' => $cart->total]);
+
         } elseif ($action !== 'delete' && $newQuantity > 0) {
+            // Update item quantity and subtotal
             $cartDetail->quantity = $newQuantity;
             $cartDetail->subtotal = $newQuantity * $cartDetail->food->price;
             $cartDetail->save();
+
+            // Recalculate the cart total after the update
+            if ($cart) {
+                $cart->total = CartDetails::where('cart_id', $cart->cart_id)->sum('subtotal');
+                $cart->save();
+            }
         }
 
-        $cart = Cart::where('cart_id', $cartDetail->cart_id)->first();
-        if ($cart) {
-            $cart->total = CartDetails::where('cart_id', $cart->cart_id)->sum('subtotal');
-            $cart->save();
-        }
-
+        // Redirect after the update
         return redirect()->route('cart')->with('success', 'Cart updated successfully.');
     }
 
 
+    public function clear()
+    {
+        // Get the current cart and clear all items
+        $cart = Cart::where('user_id', auth()->id())->first();
+
+        if ($cart) {
+            $cart->cartDetails()->delete(); // Clear all cart details
+            $cart->total = 0;
+            $cart->save();
+        }
+
+        return redirect()->back()->with('success', 'All items cleared from the cart.');
+    }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy($cartDetailId)
     {
-        //
+        // Find the cart detail and delete it
+        $cartDetail = CartDetails::findOrFail($cartDetailId);
+        $cartId = $cartDetail->cart_id;
+
+        $cartDetail->delete();
+
+        // Recalculate and update the cart total
+        $cart = Cart::where('cart_id', $cartId)->first();
+        if ($cart) {
+            $cart->total = CartDetails::where('cart_id', $cartId)->sum('subtotal');
+            $cart->save();
+        }
+
+        return redirect()->route('cart')->with('success', 'Item removed from cart.');
     }
 
 

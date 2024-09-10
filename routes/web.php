@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailsController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ProfileController;
@@ -69,8 +70,11 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/foodDetail/{food}', [FoodController::class, 'showCus'])->name('foodDetail');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('/cart/add/{food_id}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::delete('/cart/{cartDetail}', [CartController::class, 'destroy'])->name('cart.delete');  // For deleting individual items
+    Route::delete('/cart/clear/clean', [CartController::class, 'clear'])->name('cart.clear');
     Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
+    Route::get('/coupon', [CouponController::class, 'getCoupon'])->name('coupon');
 
 });
 

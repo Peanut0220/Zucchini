@@ -186,4 +186,6 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'apiEndpoint' => 'http://127.0.0.1:8081/api/coupons'
+
 ];

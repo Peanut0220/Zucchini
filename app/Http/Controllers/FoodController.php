@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Iterator\ConcreteAggregate;
 use App\Models\Category;
 use App\Models\Food;
 use App\Http\Requests\StoreFoodRequest;
@@ -14,8 +15,10 @@ class FoodController extends Controller
     // Admin view for listing foods
     public function index()
     {
-        $foods = Food::all(); // Fetch all food items
-        return view('adminonly.food.index', compact('foods')); // Pass the $foods variable to the admin view
+        $foods = Food::all()->toArray();
+        $foodAggregate = new ConcreteAggregate($foods);
+        $foodIterator = $foodAggregate->iterator();
+        return view('adminonly.food.index', compact('foodIterator')); // Pass the $foods variable to the admin view
     }
 
     // Customer view for listing foods
