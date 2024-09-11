@@ -79,7 +79,10 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/checkout', [CartController::class, 'checkoutIndex'])->name('checkout');
     Route::post('/checkout/process', [OrderController::class, 'checkout'])->name('checkout.process');
     Route::get('/order/success/{order_id}', [OrderController::class, 'orderSuccess'])->name('order.success');
-
+    Route::get('/orderList', function () {
+        return view('custonly.orderList');
+    })->name('orderList');
+    Route::get('/order/{order}', [OrderController::class, 'show'])->name('orderShow');
 });
 
 // Admin routes

@@ -31,10 +31,10 @@
                         <!-- Status Field -->
                         <x-input-label for="status" :value="__('Status')" />
                         <select id="status" name="status" class="mt-1 block w-full rounded-md" required>
-                            <option value="pending" {{ $delivery->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="preparing" {{ $delivery->status == 'preparing' ? 'selected' : '' }}>Preparing</option>
-                            <option value="delivering" {{ $delivery->status == 'delivering' ? 'selected' : '' }}>Delivering</option>
-                            <option value="delivered" {{ $delivery->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                            <option value="Pending" {{ $delivery->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="Preparing" {{ $delivery->status == 'Preparing' ? 'selected' : '' }}>Preparing</option>
+                            <option value="Delivering" {{ $delivery->status == 'Delivering' ? 'selected' : '' }}>Delivering</option>
+                            <option value="Delivered" {{ $delivery->status == 'Delivered' ? 'selected' : '' }}>Delivered</option>
                         </select>
                         <x-input-error class="mt-2" :messages="$errors->get('status')" />
 

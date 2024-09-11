@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Models\Food;
-use Illuminate\Support\Carbon;
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -16,9 +16,10 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class FoodTable extends PowerGridComponent
+final class OrderTable extends PowerGridComponent
 {
     use WithExport;
+
     public bool $showFilters = true;
     public bool $multiSort = true;
     public int $perPage = 10;
@@ -26,8 +27,6 @@ final class FoodTable extends PowerGridComponent
 
     public function setUp(): array
     {
-
-
         return [
             Header::make()
                 ->showSearchInput()
@@ -35,13 +34,16 @@ final class FoodTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage($this->perPage, $this->perPageValues)
                 ->showRecordCount(),
-
         ];
     }
 
     public function datasource(): Builder
     {
-        return Food::query();
+        return Order::query()
+            ->leftJoin('deliveries', 'orders.order_id', '=', 'deliveries.order_id')
+            ->where('orders.user_id', Auth::id()) // Filter by authenticated user
+            ->select('orders.order_id', 'orders.final', 'deliveries.status as delivery_status', 'orders.created_at')
+            ->orderBy('orders.order_id', 'asc'); // Explicitly order by 'order_id'
     }
 
     public function relationSearch(): array
@@ -52,27 +54,28 @@ final class FoodTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('food_id')
-            ->add('name')
-            ->add('description')
-            ->add('price')
+            ->add('order_id')
+            ->add('final')
+            ->add('delivery_status') // Delivery status
             ->add('created_at');
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Id', 'food_id')
-             ->sortable()
-        ->searchable(),
+            Column::make('Order ID', 'order_id')
+                ->sortable()
+                ->searchable(),
 
-            Column::make('Name', 'name')
+            Column::make('Total', 'final')
                 ->sortable()
                 ->searchable(),
-            Column::make('Price', 'price')
-                ->sortable()
+
+            Column::make('Delivery Status', 'delivery_status') // Delivery status column
+            ->sortable()
                 ->searchable(),
-            Column::make('Created at', 'created_at')
+
+            Column::make('Created At', 'created_at')
                 ->sortable()
                 ->searchable(),
 
@@ -82,36 +85,22 @@ final class FoodTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
+        return [];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
+    #[\Livewire\Attributes\On('show')]
+    public function show($rowId): void
     {
         $this->js('alert('.$rowId.')');
     }
 
-    public function actions(Food $row): array
+    public function actions(Order $row): array
     {
         return [
-            Button::add('edit')
-                ->slot('Edit')
-
+            Button::add('show')
+                ->slot('Show')
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->route('food.edit', ['food' => $row])
+                ->route('orderShow', ['order' => $row])
         ];
     }
-
-    /*
-    public function actionRules($row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
 }

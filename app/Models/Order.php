@@ -16,9 +16,14 @@ class Order extends Model
 
     protected $fillable = ['order_id', 'user_id','final','total','tax','discount'];
 
-    public function orderDetails()
+    public function details()
     {
         return $this->hasMany(OrderDetails::class, 'order_id', 'order_id');
+    }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class, 'order_id','order_id');
     }
 
     public static function boot()

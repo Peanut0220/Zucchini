@@ -22,7 +22,7 @@ class StoreDeliveryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['in:preparing,delivering,delivered,pending']
+            'status' => ['in:Preparing,Delivering,Delivered,Pending']
         ];
     }
 }
