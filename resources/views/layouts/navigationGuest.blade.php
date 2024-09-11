@@ -15,8 +15,13 @@
                     <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('menu')" :active="request()->routeIs('menu')">
+                        {{ __('Menu') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('menu')" :active="request()->routeIs('menu')">
+                        {{ __('About Us') }}
+                    </x-nav-link>
                 </div>
-
             </div>
             <div class="mt-auto mb-auto">
                 <a href={{route('login')}}>
@@ -25,8 +30,6 @@
               </x-primary-button>
                 </a>
             </div>
-
-
         </div>
     </div>
 

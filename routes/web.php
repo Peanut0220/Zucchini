@@ -5,6 +5,7 @@ use App\Http\Controllers\CartDetailsController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +76,9 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
     Route::get('/coupon', [CouponController::class, 'getCoupon'])->name('coupon');
+    Route::get('/checkout', [CartController::class, 'checkoutIndex'])->name('checkout');
+    Route::post('/checkout/process', [OrderController::class, 'checkout'])->name('checkout.process');
+    Route::get('/order/success/{order_id}', [OrderController::class, 'orderSuccess'])->name('order.success');
 
 });
 

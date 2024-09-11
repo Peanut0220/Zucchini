@@ -9,7 +9,7 @@
 
             </div>
             <div class="grid grid-cols-2 gap-4 mt-8">
-                <img class="w-full rounded-lg" src="https://images.unsplash.com/photo-1485962398705-ef6a13c41e8f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="office content 1">
+                <img class="w-full rounded-lg" src="https://images.unsplash.com/photo-1518476381266-33596bddffc0?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="office content 1">
                 <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://plus.unsplash.com/premium_photo-1671403964040-3fa56d33f44b?q=80&w=1901&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="office content 2">
             </div>
         </div>

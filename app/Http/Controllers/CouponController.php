@@ -21,8 +21,8 @@ class CouponController extends Controller
         curl_setopt($ch, CURLOPT_TIMEOUT, 120); // Increase timeout if needed
 
         // Remove SSL options if not using HTTPS
-       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         // Enable verbose output for debugging
         curl_setopt($ch, CURLOPT_VERBOSE, true);

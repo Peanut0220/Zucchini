@@ -14,7 +14,7 @@ class Delivery extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable =['delivery_id','status','rider','order_id'];
+    protected $fillable =['delivery_id','address','status','rider','order_id'];
 
     public static function boot()
     {

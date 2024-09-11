@@ -110,21 +110,23 @@
                                 </dl>
 
                                 <dl class="flex items-center justify-between gap-4">
-                                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
+                                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax (6%)</dt>
                                     <dd class="text-base font-medium text-gray-900 dark:text-white">
-                                        RM {{ $cart->tax ?? 0 }}</dd>
+                                        RM {{ number_format($cart->total * 0.06, 2) }}</dd>
                                 </dl>
                             </div>
 
                             <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                                 <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
                                 <dd class="text-base font-bold text-gray-900 dark:text-white">
-                                    RM {{ $cart->total + ($cart->tax ?? 0) }}</dd>
+                                    RM {{ $cart->total + (number_format($cart->total * 0.06, 2)) }}</dd>
                             </dl>
                         </div>
+                        @if($cart->cartDetails->count() > 0)
                         <div class="space-y-4">
                             <div class="flex justify-center">
-                                <x-create-button>Proceed to Checkout</x-create-button>
+                                <a href="{{route('checkout')}}">
+                                <x-create-button>Proceed to Checkout</x-create-button></a>
                             </div>
                         </div>
 
@@ -141,6 +143,19 @@
                                 </svg>
                             </a>
                         </div>
+                        @else
+                            <div class="flex items-center justify-center gap-2">
+                                <a href="{{ route('menu') }}"
+                                   class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
+                                    Continue Shopping
+                                    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                         viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        @endif
                     </div>
 
                     <div

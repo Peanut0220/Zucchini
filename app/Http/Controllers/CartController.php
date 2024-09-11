@@ -27,7 +27,6 @@ class CartController extends Controller
         if (!$cart) {
             // If no active cart, create a new one
             $cart = Cart::create([
-                'cart_id' => $this->generateCartId(),
                 'user_id' => $userId,
                 'total' => 0, // Total will be updated later
             ]);
@@ -45,6 +44,34 @@ class CartController extends Controller
         ]);
     }
 
+    public function checkoutIndex()
+    {
+        // Retrieve the current user
+        $user = Auth::user();
+
+        // Check if the user already has an active cart
+        $userId = auth()->user()->user_id; // Assuming 'user_id' is a custom ID
+        $cart = Cart::where('user_id', $userId)->with('cartDetails')->first();
+
+        // Check if the cart exists and has items
+        if (empty($cart) || $cart->cartDetails->isEmpty()) {
+            return redirect()->route('cart')->with('error', 'Your cart is empty. Please add items to your cart.');
+        }
+
+        // Fetch the user's cart, along with cart details and the associated food items
+        $cart = Cart::where('user_id', $user->user_id)
+            ->with('cartDetails.food') // Eager load the food items in cart details
+            ->first();
+
+        // Pass the cart to the view
+        return view('custonly.checkout', [
+            'cart' => $cart,
+        ]);
+    }
+
+
+
+
     public function addToCart(Request $request, $food_id)
     {
         // Find the food item
@@ -53,6 +80,14 @@ class CartController extends Controller
         // Check if the user already has an active cart
         $userId = auth()->user()->user_id; // Assuming 'user_id' is a custom ID
         $cart = Cart::where('user_id', $userId)->first();
+
+        if (!$cart) {
+            // If no active cart, create a new one
+            $cart = Cart::create([
+                'user_id' => $userId,
+                'total' => 0, // Total will be updated later
+            ]);
+        }
 
 
         // Check if the food is already in the cart details
@@ -70,7 +105,6 @@ class CartController extends Controller
         } else {
             // Add new item to cart details
             CartDetails::create([
-                'cartDetail_id' => $this->generateCartDetailId(),
                 'cart_id' => $cart->cart_id,
                 'food_id' => $food->food_id,
                 'quantity' => $quantity,

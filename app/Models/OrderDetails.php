@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderDetails extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $primaryKey = 'orderDetail_id';
     public $incrementing = false;
@@ -16,6 +16,15 @@ class OrderDetails extends Model
 
     protected $fillable = ['orderDetail_id','food_id', 'order_id','price','quantity','subtotal'];
 
+    public function food()
+    {
+        return $this->belongsTo(Food::class, 'food_id', 'food_id');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'order_id');
+    }
     public static function boot()
     {
         parent::boot();
@@ -30,8 +39,13 @@ class OrderDetails extends Model
     private static function generateUniqueId()
     {
         $prefix = 'OD';
-        $lastId = self::orderBy('orderDetail_id','desc')->first();
-        $number = $lastId ? (int)substr($lastId->orderDetail_id, 1) + 1 : 1;
+        $number = 1;
+
+        $lastId = self::orderBy('orderDetail_id', 'desc')->first();
+        if ($lastId) {
+            $number = (int)substr($lastId->orderDetail_id, strlen($prefix)) + 1;
+        }
+
         return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 }

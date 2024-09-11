@@ -18,6 +18,7 @@ class DeliveryFactory extends Factory
     {
         return [
             'delivery_id' => $this->generateDeliveryId(),
+            'address' => $this->faker->address(),
             'status' => $this->faker->randomElement(['pending', 'delivered', 'preparing', 'delivering']),
             'rider'=> $this->faker->randomElement(['Foodpanda', 'Grab', 'ShopeeFood', 'Lalamove']),
             'order_id' => 'OR00001'

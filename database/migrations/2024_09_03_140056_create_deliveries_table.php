@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->string('delivery_id')->primary(); // Custom ID
+            $table->string('address');
             $table->string('status');
             $table->string('rider');
             $table->string('order_id'); // Match the type of the foreign key

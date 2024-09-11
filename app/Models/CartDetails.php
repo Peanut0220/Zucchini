@@ -42,8 +42,13 @@ class CartDetails extends Model
     private static function generateUniqueId()
     {
         $prefix = 'CD';
-        $lastId = self::orderBy('cartDetail_id','desc')->first();
-        $number = $lastId ? (int)substr($lastId->cartDetail_id, 1) + 1 : 1;
+        $number = 1;
+
+        $lastId = self::orderBy('cartDetail_id', 'desc')->first();
+        if ($lastId) {
+            $number = (int)substr($lastId->cartDetail_id, strlen($prefix)) + 1;
+        }
+
         return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 
