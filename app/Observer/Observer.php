@@ -4,5 +4,5 @@ namespace App\Observer;
 
 interface Observer
 {
-    public function update($deliveryStatus);
+    public function update($deliveryStatus,$deliveryId);
 }

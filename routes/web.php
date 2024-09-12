@@ -83,6 +83,7 @@ Route::middleware(['auth','verified'])->group(function () {
         return view('custonly.orderList');
     })->name('orderList');
     Route::get('/order/{order}', [OrderController::class, 'show'])->name('orderShow');
+    Route::get('/delivery-status/{delivery}', [DeliveryController::class, 'getDeliveryStatus']);
 });
 
 // Admin routes

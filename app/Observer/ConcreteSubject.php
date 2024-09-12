@@ -1,25 +1,13 @@
 <?php
 
-namespace App\Observer;
+// app/Observer/ConcreteSubject.php
 
-use App\Observer\Subject;
-use App\Observer\Observer;
+namespace App\Observer;
 
 class ConcreteSubject implements Subject
 {
+    private $state;
     private $observers = [];
-    private $deliveryStatus;
-
-    public function getState()
-    {
-        return $this->deliveryStatus;
-    }
-
-    public function setState($status)
-    {
-        $this->deliveryStatus = $status;
-        $this->notify();
-    }
 
     public function attach(Observer $observer)
     {
@@ -28,17 +16,26 @@ class ConcreteSubject implements Subject
 
     public function detach(Observer $observer)
     {
-        foreach ($this->observers as $key => $o) {
-            if ($o === $observer) {
-                unset($this->observers[$key]);
-            }
+        $index = array_search($observer, $this->observers);
+        if ($index !== false) {
+            unset($this->observers[$index]);
         }
     }
 
-    public function notify()
+    // Updated setState to accept two parameters
+    public function setState($deliveryStatus, $deliveryId)
+    {
+        $this->state = $deliveryStatus;
+
+        // Notify observers, passing the delivery ID as well
+        $this->notify($deliveryStatus, $deliveryId);
+    }
+
+    public function notify($deliveryStatus, $deliveryId)
     {
         foreach ($this->observers as $observer) {
-            $observer->update($this->getState());
+            $observer->update($deliveryStatus, $deliveryId);
         }
     }
 }
+
