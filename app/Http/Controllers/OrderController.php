@@ -72,20 +72,18 @@ class OrderController extends Controller
 
     public function checkout(Request $request)
     {
-        $userId = Auth::id(); // Get the currently authenticated user's ID
+        $userId = Auth::id();
 
         // Retrieve the user's cart
         $cart = Cart::where('user_id', $userId)->first();
 
-        // If the cart is empty, redirect the user to the previous page with an error
         if (!$cart || $cart->cartDetails->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty!');
         }
 
-        // Calculate the total price, tax, discount, and final amount (discount is 0 for now)
         $total = $cart->total;
         $tax = $this->calculateTax($total);
-        $discount = 0; // Fixed as 0
+        $discount = 0;
         $final = $this->calculateFinalAmount($total, $tax, $discount);
 
         // Create a new order
@@ -108,23 +106,30 @@ class OrderController extends Controller
             ]);
         }
 
-        // Create a delivery record
-        Delivery::create([
-            'address' => $request->input('street_address'), // From the form
-            'status' => 'Pending', // Default status
-            'rider' => $request->input('rider'), // From the form
+        // Create a new delivery and attach the observer
+        $deliverySubject = new \App\Observer\ConcreteSubject();  // ConcreteSubject instance
+        $customerObserver = new \App\Observer\ConcreteObserver(); // ConcreteObserver instance
+        $deliverySubject->attach($customerObserver);
+
+        $delivery = Delivery::create([
+            'address' => $request->input('street_address'),
+            'status' => 'Pending',
+            'rider' => $request->input('rider'),
             'order_id' => $order->order_id,
         ]);
 
-        // Delete the cart details but keep the cart
+        // Set the delivery state and notify observers
+        $deliverySubject->setState($delivery->status);
+
+        // Clear the cart
         $cart->cartDetails()->delete();
-        $cart->total =0;
+        $cart->total = 0;
         $cart->save();
 
-        // Redirect to a success page
         return redirect()->route('menu')
             ->with('success', 'Your order has been placed successfully!');
     }
+
 
     // Helper function to calculate tax (10% for now)
     private function calculateTax($total)
