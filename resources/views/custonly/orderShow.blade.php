@@ -73,7 +73,7 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Payment Method</label>
-                                        <input type="text" value="Credit Card"
+                                        <input type="text" value="{{ $order->payment_type }}"
                                                class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300"
                                                disabled>
                                     </div>

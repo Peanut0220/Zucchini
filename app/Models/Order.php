@@ -14,7 +14,7 @@ class Order extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['order_id', 'user_id','final','total','tax','discount'];
+    protected $fillable = ['order_id', 'user_id','payment_type','final','total','tax','discount'];
 
     public function details()
     {

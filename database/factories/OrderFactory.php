@@ -19,6 +19,7 @@ class OrderFactory extends Factory
         return [
             'order_id' => $this->generateOrderId(),
             'user_id' => 'U00001',
+            'payment_type' => $this->faker->word(),
             'final' => 100,
             'total' => 100,
             'tax' => 0,

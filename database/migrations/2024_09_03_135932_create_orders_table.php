@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('order_id')->primary(); // Custom ID
             $table->string('user_id'); // Match the type of the foreign key
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->string('payment_type');
             $table->decimal('final');
             $table->decimal('total');
             $table->decimal('tax');

@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderDetails;
+use App\Strategy\PaymentContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,7 +71,7 @@ class OrderController extends Controller
         //
     }
 
-    public function checkout(Request $request)
+    public function checkout(StoreOrderRequest $request)
     {
         $userId = Auth::id();
 
@@ -86,13 +87,23 @@ class OrderController extends Controller
         $discount = 0;
         $final = $this->calculateFinalAmount($total, $tax, $discount);
 
-        // Create a new order
+        $paymentType = "";
+        if ( $request->input('payment_method')=== 'CC') {
+            $paymentType = 'Credit Card';
+        } else if ($request->input('payment_method') === 'EW') {
+            $paymentType = 'Ewallet';
+        } else if ($request->input('payment_method') === 'COD') {
+            $paymentType = 'Cash On Delivery';
+        }
+
+        // Create a new order and store payment method
         $order = Order::create([
             'user_id' => $userId,
+            'payment_type' => $paymentType, // Store payment method
             'total' => number_format($total, 2),
             'tax' => number_format($tax, 2),
             'discount' => number_format($discount, 2),
-            'final' => number_format($final, 2),
+            'final' => number_format($final, 2)
         ]);
 
         // Copy cart details to order details
@@ -106,29 +117,34 @@ class OrderController extends Controller
             ]);
         }
 
-        // Create a new delivery and attach the observer
-        $deliverySubject = new \App\Observer\ConcreteSubject();  // ConcreteSubject instance
-        $customerObserver = new \App\Observer\ConcreteObserver(); // ConcreteObserver instance
-        $deliverySubject->attach($customerObserver);
-
-        $delivery = Delivery::create([
+        // Create delivery record
+        Delivery::create([
             'address' => $request->input('street_address'),
             'status' => 'Pending',
             'rider' => $request->input('rider'),
             'order_id' => $order->order_id,
         ]);
 
-        // Set the delivery state and notify observers
-        $deliverySubject->setState($delivery->status);
-
         // Clear the cart
         $cart->cartDetails()->delete();
         $cart->total = 0;
         $cart->save();
 
-        return redirect()->route('menu')
-            ->with('success', 'Your order has been placed successfully!');
+        // Process payment
+        $paymentResult = $this->processPayment($request->input('payment_method'), $final);
+
+        // Pass both success message and payment result to the session
+        return redirect()->route('orderList')
+            ->with('success', 'Your order has been placed successfully!')
+            ->with('paymentResult', $paymentResult);
     }
+
+    private function processPayment($paymentType, $amount)
+    {
+        $paymentContext = new PaymentContext($paymentType);
+        return $paymentContext->processPayment($amount); // Returning payment result
+    }
+
 
 
     // Helper function to calculate tax (10% for now)

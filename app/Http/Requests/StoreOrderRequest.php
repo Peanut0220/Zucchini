@@ -6,22 +6,14 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrderRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        return [
+        $rules = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => [
@@ -30,19 +22,21 @@ class StoreOrderRequest extends FormRequest
                 'max:15',
             ],
             'street_address' => 'required|string|max:255',
-            'rider' => 'required|string',
-            'card_name' => 'required|string|max:255',
-            'card_number' => 'required|numeric|digits_between:13,19',
-            'expiration_date' => 'required|date_format:m/y',
-            'cvv' => 'required|numeric|digits:3',
+            'rider' => 'required|string|in:FoodPanda,Grab,ShopeeFood',
+            'payment_method' => 'required|string|in:CC,COD,EW',
         ];
+
+        // Add credit card fields only if the payment method is 'credit_card'
+        if ($this->input('payment_method') === 'CC') {
+            $rules['card_name'] = 'required|string|max:255';
+            $rules['card_number'] = 'required|numeric|digits_between:13,19';
+            $rules['expiration_date'] = 'required|date_format:m/y';
+            $rules['cvv'] = 'required|numeric|digits:3';
+        }
+
+        return $rules;
     }
 
-    /**
-     * Get the custom messages for validation errors.
-     *
-     * @return array<string, string>
-     */
     public function messages(): array
     {
         return [

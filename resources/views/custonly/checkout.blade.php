@@ -64,17 +64,30 @@
                         <!-- Payment Method Section -->
                         <div class="py-6 border-t border-gray-200 dark:border-neutral-700">
                             <x-input-label for="payment-method" :value="__('Payment method')" />
+                            <div class="mt-2">
+                                <select id="payment-method" name="payment_method" class="block w-full border-gray-200 shadow-sm rounded-lg" required>
+                                    <option value="">-- Select Payment Method --</option>
+                                    <option value="COD" {{ old('payment_method') == 'COD' ? 'selected' : '' }}>Cash on Delivery</option>
+                                    <option value="CC" {{ old('payment_method') == 'CC' ? 'selected' : '' }}>Credit Card</option>
+                                    <option value="EW" {{ old('payment_method') == 'EW' ? 'selected' : '' }}>E-wallet</option>
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('payment_method')" />
+                            </div>
+                        </div>
+
+                        <!-- Credit Card Details (shown only if Credit Card is selected) -->
+                        <div id="credit-card-fields" class="py-6 border-t border-gray-200 dark:border-neutral-700 hidden">
                             <div class="mt-2 space-y-3">
-                                <x-text-input id="payment-method" name="card_name" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="Name on Card" value="{{ old('card_name') }}" required />
+                                <x-text-input id="card_name" name="card_name" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="Name on Card" value="{{ old('card_name') }}" />
                                 <x-input-error class="mt-2" :messages="$errors->get('card_name')" />
 
-                                <x-text-input name="card_number" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="Card Number" value="{{ old('card_number') }}" required />
+                                <x-text-input name="card_number" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="Card Number" value="{{ old('card_number') }}" />
                                 <x-input-error class="mt-2" :messages="$errors->get('card_number')" />
 
-                                <x-text-input name="expiration_date" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="Expiration Date" value="{{ old('expiration_date') }}" required />
+                                <x-text-input name="expiration_date" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="Expiration Date" value="{{ old('expiration_date') }}" />
                                 <x-input-error class="mt-2" :messages="$errors->get('expiration_date')" />
 
-                                <x-text-input name="cvv" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="CVV" value="{{ old('cvv') }}" required />
+                                <x-text-input name="cvv" type="text" class="block w-full border-gray-200 shadow-sm rounded-lg" placeholder="CVV" value="{{ old('cvv') }}" />
                                 <x-input-error class="mt-2" :messages="$errors->get('cvv')" />
                             </div>
                         </div>
@@ -102,9 +115,21 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Script to handle showing/hiding credit card fields based on payment method -->
+    <script>
+        document.getElementById('payment-method').addEventListener('change', function () {
+            const creditCardFields = document.getElementById('credit-card-fields');
+            if (this.value === 'CC') {  // Change 'credit_card' to 'CC'
+                creditCardFields.classList.remove('hidden');
+            } else {
+                creditCardFields.classList.add('hidden');
+            }
+        });
+    </script>
+
 </x-app-layout>
