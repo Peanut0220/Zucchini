@@ -3,56 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CouponController extends Controller
 {
-    // Fetch coupon details from .NET service
-    public function getCoupon()
+    public function getCoupons()
     {
-        // .NET Coupon API URL
-        $apiUrl = 'http://127.0.0.1:44311/api/coupon'; // Change 'localhost' if necessary
-
-        // Initialize cURL session
-        $ch = curl_init();
-
-        // Set the URL and cURL options
-        curl_setopt($ch, CURLOPT_URL, $apiUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 120); // Increase timeout if needed
-
-        // Remove SSL options if not using HTTPS
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-        // Enable verbose output for debugging
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_STDERR, fopen(storage_path('logs/curl.log'), 'w')); // Log verbose output
-
-        // Execute cURL request
-        $response = curl_exec($ch);
-
-        if ($response === false) {
-            $error_msg = curl_error($ch);
-            curl_close($ch);
-            return view('custonly.coupon', ['error' => 'Error fetching coupon data: ' . $error_msg]);
+        $response = Http::withOptions([
+            'verify' => false, // Disable SSL certificate verification
+        ])->get('https://localhost:44332/api/coupon');
+        if ($response->successful()) {
+            return view('custonly.coupon', ['coupons' => $response->json()]);
+        } else {
+            return response('Error fetching coupons', 500);
         }
-
-        curl_close($ch);
-
-        // Check if the response is valid JSON
-        $couponData = json_decode($response, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return view('custonly.coupon', ['error' => 'Invalid JSON response from coupon service.']);
-        }
-
-        // Check for coupon data structure
-        if (!isset($couponData['code'])) {
-            return view('custonly.coupon', ['error' => 'Invalid coupon data received.']);
-        }
-
-        return view('custonly.coupon', ['coupon' => $couponData]);
     }
 
-
+    public function getCoupon($id)
+    {
+        $response = Http::get("https://localhost:44332/api/coupon/{$id}");
+        if ($response->successful()) {
+            return view('custonly.coupon', ['coupon' => $response->json()]);
+        } else {
+            return response('Coupon not found', 404);
+        }
+    }
 }

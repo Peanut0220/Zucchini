@@ -80,7 +80,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::delete('/cart/clear/clean', [CartController::class, 'clear'])->name('cart.clear');
     Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
-    Route::get('/coupon', [CouponController::class, 'getCoupon'])->name('coupon');
+    Route::get('/coupons', [CouponController::class, 'getCoupons'])->name('coupon');
+    Route::get('/coupons/{id}', [CouponController::class, 'getCoupon']);
     Route::get('/checkout', [CartController::class, 'checkoutIndex'])->name('checkout');
     Route::post('/checkout/process', [OrderController::class, 'checkout'])->name('checkout.process');
     Route::get('/order/success/{order_id}', [OrderController::class, 'orderSuccess'])->name('order.success');
