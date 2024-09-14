@@ -10,7 +10,7 @@ class CouponController extends Controller
     public function getCoupon()
     {
         // .NET Coupon API URL
-        $apiUrl = 'http://localhost:44311/api/coupon'; // Change 'localhost' if necessary
+        $apiUrl = 'http://127.0.0.1:44311/api/coupon'; // Change 'localhost' if necessary
 
         // Initialize cURL session
         $ch = curl_init();

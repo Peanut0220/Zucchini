@@ -84,6 +84,8 @@ Route::middleware(['auth','verified'])->group(function () {
     })->name('orderList');
     Route::get('/order/{order}', [OrderController::class, 'show'])->name('orderShow');
     Route::get('/delivery-status/{delivery}', [DeliveryController::class, 'getDeliveryStatus']);
+    Route::get('/export-orders', 'App\Http\Controllers\OrderController@displayTransformedXML')->name('export.orders');
+
 });
 
 // Admin routes
@@ -94,6 +96,8 @@ Route::middleware(['auth', 'role:admin','verified'])->group(function () {
 
     Route::resource('/food', FoodController::class); // Admin food management
     Route::resource('/delivery', DeliveryController::class);
+    Route::get('/export-foods', 'App\Http\Controllers\FoodController@displayTransformedXML')->name('export.foods');
+
 });
 
 require __DIR__ . '/auth.php';

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Food;
 use App\Http\Requests\StoreFoodRequest;
 use App\Http\Requests\UpdateFoodRequest;
+use App\Models\XSLTTransformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,29 @@ class FoodController extends Controller
         $foodAggregate = new ConcreteAggregate($foods);
         $foodIterator = $foodAggregate->iterator();
         return view('adminonly.food.index', compact('foodIterator')); // Pass the $foods variable to the admin view
+    }
+
+    public function __construct(XMLController $xmlController)
+    {
+        $this->xmlController = $xmlController;
+    }
+
+    public function displayTransformedXML()
+    {
+
+            $xmlPath = $this->xmlController->xmlFoodList();
+
+            if (!is_string($xmlPath)) {
+                return $xmlPath; // Forward the error response if not a string
+            }
+
+            $transformer = new XSLTTransformation();
+            $xslPath = public_path('xml/foods.xsl');
+            $output = $transformer->transform($xmlPath, $xslPath);
+
+            return response($output, 200, ['Content-Type' => 'text/html']);
+
+
     }
 
     // Customer view for listing foods

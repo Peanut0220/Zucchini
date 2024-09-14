@@ -14,7 +14,9 @@
         "livewire/livewire": "^3.5",
         "power-components/livewire-powergrid": "^5.10",
         "spatie/laravel-permission": "^6.9",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-xsl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

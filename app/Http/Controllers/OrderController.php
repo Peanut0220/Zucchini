@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderDetails;
+use App\Models\XSLTTransformation;
 use App\Strategy\PaymentContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,29 @@ class OrderController extends Controller
     public function create()
     {
         //
+    }
+
+    public function __construct(XMLController $xmlController)
+    {
+        $this->xmlController = $xmlController;
+    }
+
+    public function displayTransformedXML()
+    {
+
+        $xmlPath = $this->xmlController->xmlOrderList();
+
+        if (!is_string($xmlPath)) {
+            return $xmlPath; // Forward the error response if not a string
+        }
+
+        $transformer = new XSLTTransformation();
+        $xslPath = public_path('xml/orders.xsl');
+        $output = $transformer->transform($xmlPath, $xslPath);
+
+        return response($output, 200, ['Content-Type' => 'text/html']);
+
+
     }
 
     /**

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xml/orders.xsl"?>
+<Orders>
+  <Order>
+    <OrderID>OR00011</OrderID>
+    <Total>72.91</Total>
+    <PaymentType>cod</PaymentType>
+    <CreatedAt>2024-09-13 07:47:08</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00012</OrderID>
+    <Total>35.23</Total>
+    <PaymentType>cod</PaymentType>
+    <CreatedAt>2024-09-13 07:59:10</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00013</OrderID>
+    <Total>72.91</Total>
+    <PaymentType>COD</PaymentType>
+    <CreatedAt>2024-09-13 08:02:24</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00014</OrderID>
+    <Total>35.23</Total>
+    <PaymentType>COD</PaymentType>
+    <CreatedAt>2024-09-13 08:06:19</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00015</OrderID>
+    <Total>35.23</Total>
+    <PaymentType>COD</PaymentType>
+    <CreatedAt>2024-09-13 08:06:54</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00016</OrderID>
+    <Total>35.23</Total>
+    <PaymentType>EW</PaymentType>
+    <CreatedAt>2024-09-13 08:08:14</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00017</OrderID>
+    <Total>72.91</Total>
+    <PaymentType>Credit Card</PaymentType>
+    <CreatedAt>2024-09-13 08:13:37</CreatedAt>
+  </Order>
+</Orders>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xml/foods.xsl"?>
+<Foods>
+  <Food>
+    <ID>F00001</ID>
+    <Name>Ut quos facere fugiat cum.</Name>
+    <Description>A fugit ipsam ea et sunt alias. Omnis deleniti ab dolores at. Nulla ipsa impedit odit assumenda ad.</Description>
+    <Price>68.78</Price>
+  </Food>
+  <Food>
+    <ID>F00002</ID>
+    <Name>Ut aut possimus iure.</Name>
+    <Description>Officia fugit magnam rerum odit. Qui voluptas dolorem dolore vero. Et odit optio natus molestiae.</Description>
+    <Price>33.24</Price>
+  </Food>
+  <Food>
+    <ID>F00003</ID>
+    <Name>Rerum quod sunt et quod.</Name>
+    <Description>Ex modi et id quod consequatur aspernatur mollitia occaecati. At voluptates similique modi dolorem.</Description>
+    <Price>92.09</Price>
+  </Food>
+  <Food>
+    <ID>F00004</ID>
+    <Name>Animi voluptatem atque quos.</Name>
+    <Description>Ipsum nostrum voluptatum sunt ipsam aut ipsam. Qui est dolores in sit autem.</Description>
+    <Price>42.95</Price>
+  </Food>
+  <Food>
+    <ID>F00005</ID>
+    <Name>Repudiandae eos quas amet.</Name>
+    <Description>Dolores eveniet eaque velit temporibus. Magnam rerum alias eveniet ut.</Description>
+    <Price>2.29</Price>
+  </Food>
+  <Food>
+    <ID>F00006</ID>
+    <Name>Saepe quidem doloribus et.</Name>
+    <Description>Tenetur aliquam ut aut est. Recusandae voluptatum iusto tempore est omnis.</Description>
+    <Price>40.26</Price>
+  </Food>
+  <Food>
+    <ID>F00007</ID>
+    <Name>Et eligendi sed aut impedit.</Name>
+    <Description>Eius qui sunt modi. Explicabo ducimus architecto maxime voluptates deserunt aut.</Description>
+    <Price>36.18</Price>
+  </Food>
+  <Food>
+    <ID>F00008</ID>
+    <Name>Dicta dolorum quia ea nihil.</Name>
+    <Description>Necessitatibus voluptatem laudantium ab error. Consequatur dicta vel optio tenetur.</Description>
+    <Price>56.12</Price>
+  </Food>
+  <Food>
+    <ID>F00009</ID>
+    <Name>Architecto quia qui deleniti.</Name>
+    <Description>Recusandae laboriosam magni sit voluptatem distinctio et dolor. Quo totam temporibus fugit aut ut.</Description>
+    <Price>85.86</Price>
+  </Food>
+  <Food>
+    <ID>F00010</ID>
+    <Name>Mollitia iure culpa nemo.</Name>
+    <Description>Qui et corporis quia et itaque velit rerum. Hic impedit vitae adipisci dolor.</Description>
+    <Price>92.42</Price>
+  </Food>
+</Foods>

@@ -6,7 +6,15 @@
         </div>
     @endif
 
+
+
     <div class="max-w-7xl mt-10 pb-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex pb-3">
+            <a href="{{route('export.orders')}}" class="ml-auto"><x-create-button>Generate XML </x-create-button></a>
+        </div>
         <livewire:order-table/>
     </div>
+
+
+
 </x-app-layout>
