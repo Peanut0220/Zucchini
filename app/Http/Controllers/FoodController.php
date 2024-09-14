@@ -68,6 +68,28 @@ class FoodController extends Controller
         return view('custonly.menu', compact('foods', 'categories'));
     }
 
+    public function guestMenu(Request $request)
+    {
+        $query = Food::query();
+
+        // Filter by category
+        if ($request->has('category') && $request->category) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Search by name
+        if ($request->has('search') && $request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $foods = $query->paginate(9);
+
+        // Assuming categories are predefined and accessible here
+        $categories = Category::all(); // Or use your category model
+
+        return view('guestonly.menu', compact('foods', 'categories'));
+    }
+
 
 
 

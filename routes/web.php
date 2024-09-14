@@ -57,6 +57,11 @@ Route::get('/welcome', function () {
     return view('guestonly.welcome');
 })->name('welcome');
 
+Route::get('/guestMenu', [FoodController::class, 'guestMenu'])->name('guestMenu');
+Route::get('/aboutUs', function () {
+    return view('guestonly.aboutUs');
+})->name('aboutUs');
+
 // Routes for authenticated users
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
