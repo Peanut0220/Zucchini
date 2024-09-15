@@ -6,6 +6,7 @@ use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Http\Requests\UpdateDeliveryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DeliveryController extends Controller
 {
@@ -68,5 +69,29 @@ class DeliveryController extends Controller
 
     public function cusShow(Delivery $delivery){
         return view('custonly.delivery.cusShow', compact('delivery'));
+    }
+
+    public function getDeliveries()
+    {
+        $response = Http::withOptions([
+            'verify' => false, // Disable SSL certificate verification
+        ])->get('https://localhost:44358/api/delivery');
+        if ($response->successful()) {
+            return view('custonly.checkout', ['deliveries' => $response->json()]);
+        } else {
+            return response('Error fetching coupons', 500);
+        }
+    }
+
+    public function getDelivery($id)
+    {
+        $response = Http::withOptions([
+            'verify' => false, // Disable SSL certificate verification
+        ])->get('https://localhost:44358/api/delivery/'.$id);
+        if ($response->successful()) {
+            return view('custonly.coupon', ['coupon' => $response->json()]);
+        } else {
+            return response('Coupon not found', 404);
+        }
     }
 }

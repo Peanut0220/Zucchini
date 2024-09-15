@@ -53,9 +53,9 @@
                             <div class="mt-2">
                                 <select id="rider" name="rider" class="block w-full border-gray-200 shadow-sm rounded-lg" required>
                                     <option value="">-- Select Rider --</option>
-                                    <option value="FoodPanda" {{ old('rider') == 'FoodPanda' ? 'selected' : '' }}>FoodPanda (RM 4.30)</option>
-                                    <option value="Grab" {{ old('rider') == 'Grab' ? 'selected' : '' }}>Grab (RM 5.30)</option>
-                                    <option value="ShopeeFood" {{ old('rider') == 'ShopeeFood' ? 'selected' : '' }}>ShopeeFood (RM 4.10)</option>
+                                    @foreach($deliveries as $delivery)
+                                    <option value="{{$delivery['name']}}">{{$delivery['name']}} (RM {{number_format($delivery['price'],2)}})</option>
+                                    @endforeach
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('rider')" />
                             </div>

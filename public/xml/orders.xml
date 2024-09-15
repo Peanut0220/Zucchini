@@ -3,44 +3,32 @@
 <Orders>
   <Order>
     <OrderID>OR00011</OrderID>
-    <Total>72.91</Total>
-    <PaymentType>cod</PaymentType>
-    <CreatedAt>2024-09-13 07:47:08</CreatedAt>
+    <Total>86.55</Total>
+    <PaymentType>Cash On Delivery</PaymentType>
+    <CreatedAt>2024-09-15 15:08:10</CreatedAt>
   </Order>
   <Order>
     <OrderID>OR00012</OrderID>
-    <Total>35.23</Total>
-    <PaymentType>cod</PaymentType>
-    <CreatedAt>2024-09-13 07:59:10</CreatedAt>
+    <Total>86.55</Total>
+    <PaymentType>Cash On Delivery</PaymentType>
+    <CreatedAt>2024-09-15 15:10:24</CreatedAt>
   </Order>
   <Order>
     <OrderID>OR00013</OrderID>
-    <Total>72.91</Total>
-    <PaymentType>COD</PaymentType>
-    <CreatedAt>2024-09-13 08:02:24</CreatedAt>
+    <Total>86.55</Total>
+    <PaymentType>Cash On Delivery</PaymentType>
+    <CreatedAt>2024-09-15 15:10:24</CreatedAt>
   </Order>
   <Order>
     <OrderID>OR00014</OrderID>
-    <Total>35.23</Total>
-    <PaymentType>COD</PaymentType>
-    <CreatedAt>2024-09-13 08:06:19</CreatedAt>
+    <Total>86.55</Total>
+    <PaymentType>Cash On Delivery</PaymentType>
+    <CreatedAt>2024-09-15 15:12:52</CreatedAt>
   </Order>
   <Order>
     <OrderID>OR00015</OrderID>
-    <Total>35.23</Total>
-    <PaymentType>COD</PaymentType>
-    <CreatedAt>2024-09-13 08:06:54</CreatedAt>
-  </Order>
-  <Order>
-    <OrderID>OR00016</OrderID>
-    <Total>35.23</Total>
-    <PaymentType>EW</PaymentType>
-    <CreatedAt>2024-09-13 08:08:14</CreatedAt>
-  </Order>
-  <Order>
-    <OrderID>OR00017</OrderID>
-    <Total>72.91</Total>
-    <PaymentType>Credit Card</PaymentType>
-    <CreatedAt>2024-09-13 08:13:37</CreatedAt>
+    <Total>86.55</Total>
+    <PaymentType>Cash On Delivery</PaymentType>
+    <CreatedAt>2024-09-15 15:13:14</CreatedAt>
   </Order>
 </Orders>

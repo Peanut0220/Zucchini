@@ -51,6 +51,11 @@ class CartController extends Controller
         // Retrieve the current user
         $user = Auth::user();
 
+        $response = Http::withOptions([
+            'verify' => false, // Disable SSL certificate verification
+        ])->get('https://localhost:44358/api/delivery');
+        $deliveries = $response->json();
+
         // Check if the user already has an active cart
         $userId = auth()->user()->user_id; // Assuming 'user_id' is a custom ID
         $cart = Cart::where('user_id', $userId)->with('cartDetails')->first();
@@ -67,7 +72,7 @@ class CartController extends Controller
 
         // Pass the cart to the view
         return view('custonly.checkout', [
-            'cart' => $cart,
+            'cart' => $cart,'deliveries'=>$deliveries
         ]);
     }
 
