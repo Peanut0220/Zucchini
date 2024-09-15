@@ -6,9 +6,11 @@ use App\Models\Cart;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Models\CartDetails;
+use App\Models\CouponUsage;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
@@ -69,6 +71,55 @@ class CartController extends Controller
         ]);
     }
 
+    public function applyVoucher(Request $request)
+    {
+        // Validate the voucher input
+        $request->validate([
+            'voucher' => 'required|string',
+        ]);
+
+        // Make API request to get the voucher details
+        $response = Http::withOptions([
+            'verify' => false, // Disable SSL certificate verification
+        ])->get('https://localhost:44332/api/coupon/'. $request->voucher);
+
+        if ($response->successful()) {
+            $voucher = $response->json();
+
+            if ($voucher) {
+                // Get the user ID
+                $userId = auth()->user()->user_id; // Assuming 'user_id' is a custom ID
+
+                // Check if the voucher has already been used by this user
+                $voucherUsage = CouponUsage::where('user_id', $userId)
+                    ->where('coupon_id', $voucher['id'])  // Check if the coupon has been used
+                    ->first();
+
+                // If no record is found, that means the voucher has not been used yet
+                if (!$voucherUsage) {
+                    // Store voucher info in session
+                    session(['voucherId' => $voucher['id'], 'voucher' => $voucher['code'], 'voucher_discount' => $voucher['discount']]);
+
+                    return back()->with('success', 'Voucher applied successfully!');
+                } else {
+                    return back()->withErrors(['voucher_code' => 'This voucher code has already been used']);
+                }
+            } else {
+                return back()->withErrors(['voucher_code' => 'Invalid or expired voucher code']);
+            }
+        } else {
+            return back()->withErrors(['voucher_code' => 'Invalid or expired voucher code']);
+        }
+    }
+
+    public function removeVoucher()
+    {
+        // Remove voucher from session
+        session()->forget(['voucherId','voucher', 'voucher_discount']);
+
+        return back()->with('success', 'Voucher removed successfully!');
+    }
+
 
 
 
@@ -118,6 +169,8 @@ class CartController extends Controller
 
         return redirect()->route('cart')->with('success', 'Item added to cart');
     }
+
+
 
     /**
      * Show the form for creating a new resource.

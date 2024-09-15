@@ -21,7 +21,9 @@ class CouponController extends Controller
 
     public function getCoupon($id)
     {
-        $response = Http::get("https://localhost:44332/api/coupon/{$id}");
+        $response = Http::withOptions([
+            'verify' => false, // Disable SSL certificate verification
+        ])->get('https://localhost:44332/api/coupon/'.$id);
         if ($response->successful()) {
             return view('custonly.coupon', ['coupon' => $response->json()]);
         } else {

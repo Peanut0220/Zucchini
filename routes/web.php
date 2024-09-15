@@ -91,6 +91,9 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/order/{order}', [OrderController::class, 'show'])->name('orderShow');
     Route::get('/delivery-status/{delivery}', [DeliveryController::class, 'getDeliveryStatus']);
     Route::get('/export-orders', 'App\Http\Controllers\OrderController@displayTransformedXML')->name('export.orders');
+    Route::post('/cart/voucher/apply', [CartController::class, 'applyVoucher'])->name('voucher.apply');
+    Route::post('/cart/voucher/remove', [CartController::class, 'removeVoucher'])->name('voucher.remove');
+
 
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CouponUsage;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
@@ -105,11 +106,12 @@ class OrderController extends Controller
         if (!$cart || $cart->cartDetails->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty!');
         }
+        $couponId = $request->input('voucher_id');
 
         $total = $cart->total;
-        $tax = $this->calculateTax($total);
-        $discount = 0;
-        $final = $this->calculateFinalAmount($total, $tax, $discount);
+        $discount = $request->input('voucher_discount')*$total;
+        $tax = ($total-$discount)*0.06;
+        $final = $this->calculateFinalAmount($total);
 
         $paymentType = "";
         if ( $request->input('payment_method')=== 'CC') {
@@ -128,6 +130,11 @@ class OrderController extends Controller
             'tax' => number_format($tax, 2),
             'discount' => number_format($discount, 2),
             'final' => number_format($final, 2)
+        ]);
+
+        CouponUsage::create([
+            'coupon_id' => $couponId,
+            'user_id' => $userId
         ]);
 
         // Copy cart details to order details
@@ -157,6 +164,8 @@ class OrderController extends Controller
         // Process payment
         $paymentResult = $this->processPayment($request->input('payment_method'), $final);
 
+        CartController::removeVoucher();
+
         // Pass both success message and payment result to the session
         return redirect()->route('orderList')
             ->with('success', 'Your order has been placed successfully!')
@@ -170,17 +179,10 @@ class OrderController extends Controller
     }
 
 
-
-    // Helper function to calculate tax (10% for now)
-    private function calculateTax($total)
-    {
-        return number_format($total * 0.06, 2);
-    }
-
     // Helper function to calculate the final amount (total + tax - discount)
-    private function calculateFinalAmount($total, $tax, $discount)
+    private function calculateFinalAmount($total)
     {
-        return number_format($total + $tax - $discount, 2);
+        return number_format(($total - number_format(number_format($total, 2)* session('voucher_discount'),2))*1.06,2);
     }
 
 

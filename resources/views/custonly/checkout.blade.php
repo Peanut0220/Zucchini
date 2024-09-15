@@ -91,7 +91,8 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('cvv')" />
                             </div>
                         </div>
-
+                        <input type="hidden" name="voucher_id" value="{{session('voucherId')}}">
+                        <input type="hidden" name="voucher_discount" value="{{session('voucher_discount')}}">
                         <!-- Submit Button -->
                         <x-create-button type="submit" class="mt-3">Place Order</x-create-button>
                     </form>
@@ -104,13 +105,29 @@
                                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Original price</dt>
                                     <dd class="text-base font-medium text-gray-900 dark:text-white">RM {{ $cart->total }}</dd>
                                 </dl>
+
+                                <!-- Check if the session has a voucher and display the discount -->
+                                @if(session('voucher'))
+                                    <dl class="flex items-center justify-between gap-4">
+                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Voucher Discount ({{session('voucher_discount')*100}}%)</dt>
+                                        <dd class="text-base font-medium text-gray-900 dark:text-white">
+                                            - RM {{ number_format(number_format($cart->total, 2)* session('voucher_discount'),2) }}
+                                        </dd>
+                                    </dl>
+                                @endif
+
+
                                 <dl class="flex items-center justify-between gap-4">
                                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax (6%)</dt>
-                                    <dd class="text-base font-medium text-gray-900 dark:text-white">RM {{ number_format($cart->total * 0.06, 2) }}</dd>
+                                    <dd class="text-base font-medium text-gray-900 dark:text-white">RM {{ number_format(($cart->total - number_format(number_format($cart->total, 2)* session('voucher_discount'),2))*0.06,2) }}</dd>
                                 </dl>
+
+
                                 <dl class="flex items-center justify-between gap-4">
                                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Total price</dt>
-                                    <dd class="text-2xl font-semibold text-gray-900 dark:text-white">RM {{ number_format($cart->total + ($cart->total * 0.06), 2) }}</dd>
+                                    <dd class="text-2xl font-semibold text-gray-900 dark:text-white">
+                                        RM {{ number_format(($cart->total - number_format(number_format($cart->total, 2)* session('voucher_discount'),2))*1.06,2) }}
+                                    </dd>
                                 </dl>
                             </div>
                         </div>
