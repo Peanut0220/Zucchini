@@ -1,5 +1,5 @@
 <?php
-
+//Author: Shi Lei
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -11,6 +11,8 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
     public function index()
     {
         // Fetch all categories
@@ -37,7 +39,7 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('adminonly.food.index')->with('success', 'Category created successfully!');
+        return redirect()->route('category.index')->with('success', 'Category created successfully!');
 
     }
 
@@ -67,7 +69,7 @@ class CategoryController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('adminonly.food.index')->with('success', 'Category created successfully!');
+        return redirect()->route('category.index')->with('success', 'Category created successfully!');
     }
 
     /**
@@ -78,6 +80,6 @@ class CategoryController extends Controller
         // Delete the category
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully!');
     }
 }

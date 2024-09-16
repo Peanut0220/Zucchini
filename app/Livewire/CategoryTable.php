@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Food;
+use App\Models\Category;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -16,13 +16,14 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class FoodTable extends PowerGridComponent
+final class CategoryTable extends PowerGridComponent
 {
     use WithExport;
     public bool $showFilters = true;
     public bool $multiSort = true;
     public int $perPage = 10;
     public array $perPageValues = [0, 5, 10, 20, 50];
+
 
     public function setUp(): array
     {
@@ -39,7 +40,7 @@ final class FoodTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Food::query();
+        return Category::query();
     }
 
     public function relationSearch(): array
@@ -50,24 +51,19 @@ final class FoodTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('food_id')
+            ->add('category_id')
             ->add('name')
-            ->add('description')
-            ->add('price')
             ->add('created_at');
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Id', 'food_id')
-             ->sortable()
-        ->searchable(),
-
-            Column::make('Name', 'name')
+            Column::make('Id', 'category_id')
                 ->sortable()
                 ->searchable(),
-            Column::make('Price', 'price')
+
+            Column::make('Name', 'name')
                 ->sortable()
                 ->searchable(),
             Column::make('Created at', 'created_at')
@@ -90,14 +86,14 @@ final class FoodTable extends PowerGridComponent
         $this->js('alert('.$rowId.')');
     }
 
-    public function actions(Food $row): array
+    public function actions(Category $row): array
     {
         return [
             Button::add('edit')
                 ->slot('Edit')
 
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->route('food.edit', ['food' => $row])
+                ->route('category.edit', ['category' => $row])
         ];
     }
 

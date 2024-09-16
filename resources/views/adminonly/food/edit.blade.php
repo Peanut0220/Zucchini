@@ -1,3 +1,4 @@
+{{--Author: Chong Jian--}}
 <x-admin-layout class="overflow-y-auto">
     <section class="bg-white dark:bg-gray-900 min-h-screen">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
@@ -24,8 +25,23 @@
                     <!-- Price Input -->
                     <div class="w-full mb-3">
                         <x-input-label for="price" :value="__('Price')" />
-                        <x-text-input id="price" name="price" type="text" class="mt-1 block w-full" :value="$food->price" required autofocus autocomplete="price" />
+                        <x-text-input id="price" name="price" type="text" class="mt-1 block w-full" :value="old('price', $food->price ?? '')" required autofocus autocomplete="price" />
                         <x-input-error class="mt-2" :messages="$errors->get('price')" />
+                    </div>
+
+                    <!-- Category Select Input -->
+                    <div class="w-full mb-3">
+                        <x-input-label for="category" :value="__('Category')" />
+                        <select id="category" name="category" class="mt-1 block w-full border rounded px-4 py-2" required>
+                            <option value="">Select a Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->category_id }}"
+                                    {{ old('category', $food->category_id ?? '') == $category->category_id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('category')" />
                     </div>
 
                     <!-- Image Upload and Preview -->

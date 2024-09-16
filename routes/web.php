@@ -88,7 +88,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/orderList', function () {
         return view('custonly.orderList');
     })->name('orderList');
-    Route::get('/order/{order}', [OrderController::class, 'show'])->name('orderShow');
+    Route::get('/cusOrder/{order}', [OrderController::class, 'cusShow'])->name('cusOrderShow');
     Route::get('/delivery-status/{delivery}', [DeliveryController::class, 'getDeliveryStatus']);
     Route::get('/export-orders', 'App\Http\Controllers\OrderController@displayTransformedXML')->name('export.orders');
     Route::post('/cart/voucher/apply', [CartController::class, 'applyVoucher'])->name('voucher.apply');
@@ -96,7 +96,6 @@ Route::middleware(['auth','verified'])->group(function () {
 
 
 });
-
 // Admin routes
 Route::middleware(['auth', 'role:admin','verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -105,6 +104,9 @@ Route::middleware(['auth', 'role:admin','verified'])->group(function () {
 
     Route::resource('/food', FoodController::class); // Admin food management
     Route::resource('/delivery', DeliveryController::class);
+    Route::resource('/category', \App\Http\Controllers\CategoryController::class);
+    Route::resource('/order', \App\Http\Controllers\OrderController::class);
+
     Route::get('/export-foods', 'App\Http\Controllers\FoodController@displayTransformedXML')->name('export.foods');
 
 });

@@ -26,6 +26,11 @@ class Order extends Model
         return $this->hasOne(Delivery::class, 'order_id','order_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public static function boot()
     {
         parent::boot();

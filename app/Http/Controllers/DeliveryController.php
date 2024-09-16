@@ -75,7 +75,7 @@ class DeliveryController extends Controller
     {
         $response = Http::withOptions([
             'verify' => false, // Disable SSL certificate verification
-        ])->get('https://localhost:44358/api/delivery');
+        ])->get('https://localhost:44351/api/delivery');
         if ($response->successful()) {
             return view('custonly.checkout', ['deliveries' => $response->json()]);
         } else {
@@ -87,7 +87,7 @@ class DeliveryController extends Controller
     {
         $response = Http::withOptions([
             'verify' => false, // Disable SSL certificate verification
-        ])->get('https://localhost:44358/api/delivery/'.$id);
+        ])->get('https://localhost:44351/api/delivery/'.$id);
         if ($response->successful()) {
             return view('custonly.coupon', ['coupon' => $response->json()]);
         } else {

@@ -19,18 +19,19 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class OrderListTable extends PowerGridComponent
 {
     use WithExport;
+    public bool $showFilters = true;
+    public bool $multiSort = true;
+    public int $perPage = 10;
+    public array $perPageValues = [0, 5, 10, 20, 50];
 
     public function setUp(): array
     {
-        $this->showCheckBox();
-
         return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
-            Header::make()->showSearchInput(),
+            Header::make()
+                ->showSearchInput()
+                ->showToggleColumns(),
             Footer::make()
-                ->showPerPage()
+                ->showPerPage($this->perPage, $this->perPageValues)
                 ->showRecordCount(),
         ];
     }
@@ -49,27 +50,21 @@ final class OrderListTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('order_id')
-            ->add('order_id')
             ->add('user_id')
             ->add('payment_type')
-            ->add('final')
             ->add('total')
-            ->add('tax')
             ->add('discount')
+            ->add('tax')
+            ->add('final')
             ->add('created_at');
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Order id', 'order_id')
+            Column::make('Id', 'order_id')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Order id', 'order_id')
-                ->sortable()
-                ->searchable(),
-
             Column::make('User id', 'user_id')
                 ->sortable()
                 ->searchable(),
@@ -78,11 +73,10 @@ final class OrderListTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Final', 'final')
+            Column::make('Total', 'total')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Total', 'total')
+            Column::make('Discount', 'discount')
                 ->sortable()
                 ->searchable(),
 
@@ -90,12 +84,9 @@ final class OrderListTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Discount', 'discount')
+            Column::make('Final', 'final')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
 
             Column::make('Created at', 'created_at')
                 ->sortable()
@@ -111,8 +102,8 @@ final class OrderListTable extends PowerGridComponent
         ];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
+    #[\Livewire\Attributes\On('show')]
+    public function show($rowId): void
     {
         $this->js('alert('.$rowId.')');
     }
@@ -120,11 +111,12 @@ final class OrderListTable extends PowerGridComponent
     public function actions(Order $row): array
     {
         return [
-            Button::add('edit')
-                ->slot('Edit: '.$row->id)
-                ->id()
+            Button::add('show')
+
+                ->slot('Show')
+
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->route('order.show', ['order' => $row])
         ];
     }
 

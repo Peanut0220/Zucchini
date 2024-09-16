@@ -53,7 +53,7 @@ class CartController extends Controller
 
         $response = Http::withOptions([
             'verify' => false, // Disable SSL certificate verification
-        ])->get('https://localhost:44358/api/delivery');
+        ])->get('https://localhost:44351/api/delivery');
         $deliveries = $response->json();
 
         // Check if the user already has an active cart
@@ -294,22 +294,4 @@ class CartController extends Controller
         return redirect()->route('cart')->with('success', 'Item removed from cart.');
     }
 
-
-    // Generate a custom cart ID
-    private function generateCartId()
-    {
-        $prefix = 'C';
-        $lastCart = Cart::orderBy('cart_id', 'desc')->first();
-        $number = $lastCart ? (int)substr($lastCart->cart_id, 1) + 1 : 1;
-        return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
-    }
-
-    // Generate a custom cart detail ID
-    private function generateCartDetailId()
-    {
-        $prefix = 'CD';
-        $lastCartDetail = CartDetails::orderBy('cartDetail_id', 'desc')->first();
-        $number = $lastCartDetail ? (int)substr($lastCartDetail->cartDetail_id, 2) + 1 : 1;
-        return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
-    }
 }

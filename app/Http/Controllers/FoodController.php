@@ -1,5 +1,5 @@
 <?php
-
+//Author: Chong Jian
 namespace App\Http\Controllers;
 
 use App\Iterator\ConcreteAggregate;
@@ -140,7 +140,9 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        return view('adminonly.food.edit', compact('food'));
+        $categories = Category::all(); // Assuming categories is a collection of category data
+
+        return view('adminonly.food.edit', compact('food','categories'));
     }
 
     /**
@@ -166,7 +168,7 @@ class FoodController extends Controller
             'image_path' => $filePath,
         ]);
 
-        return redirect()->route('adminonly.food.index');
+        return redirect()->route('food.index');
     }
 
     /**
@@ -180,11 +182,7 @@ class FoodController extends Controller
         }
 
         $food->delete();
-        return redirect()->route('adminonly.food.index');
+        return redirect()->route('food.index');
     }
 
-    public function test()
-    {
-        return dd(Food::all());
-    }
 }

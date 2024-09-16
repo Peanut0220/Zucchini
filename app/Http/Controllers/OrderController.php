@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Iterator\ConcreteAggregate;
 use App\Models\Cart;
 use App\Models\CouponUsage;
 use App\Models\Delivery;
@@ -13,6 +14,7 @@ use App\Models\XSLTTransformation;
 use App\Strategy\PaymentContext;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -21,7 +23,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all()->toArray();
+        $orderAggregate = new ConcreteAggregate($orders);
+        $orderIterator = $orderAggregate->iterator();
+        return view('adminonly.order.index', compact('orderIterator')); // Pass the $foods variable to the admin view
+
     }
 
     /**
@@ -69,8 +75,16 @@ class OrderController extends Controller
     public function show($orderId)
     {
         $order = Order::with('details', 'delivery')->where('order_id', $orderId)->firstOrFail();
+        return view('adminonly.order.show', ['order' => $order, 'delivery' => $order->delivery]);
+
+    }
+
+    public function cusShow($orderId)
+    {
+        $order = Order::with('details', 'delivery')->where('order_id', $orderId)->firstOrFail();
         return view('custonly.orderShow', ['order' => $order, 'delivery' => $order->delivery]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -109,12 +123,12 @@ class OrderController extends Controller
         $couponId = $request->input('voucher_id');
 
         $total = $cart->total;
-        $discount = $request->input('voucher_discount')*$total;
-        $tax = ($total-$discount)*0.06;
+        $discount = $request->input('voucher_discount') * $total;
+        $tax = ($total - $discount) * 0.06;
         $final = $this->calculateFinalAmount($total);
 
         $paymentType = "";
-        if ( $request->input('payment_method')=== 'CC') {
+        if ($request->input('payment_method') === 'CC') {
             $paymentType = 'Credit Card';
         } else if ($request->input('payment_method') === 'EW') {
             $paymentType = 'Ewallet';
@@ -132,10 +146,12 @@ class OrderController extends Controller
             'final' => number_format($final, 2)
         ]);
 
-        CouponUsage::create([
-            'coupon_id' => $couponId,
-            'user_id' => $userId
-        ]);
+        if ($couponId) {
+            CouponUsage::create([
+                'coupon_id' => $couponId,
+                'user_id' => $userId
+            ]);
+        }
 
         // Copy cart details to order details
         foreach ($cart->cartDetails as $cartDetail) {
@@ -147,6 +163,8 @@ class OrderController extends Controller
                 'subtotal' => number_format($cartDetail->subtotal, 2),
             ]);
         }
+
+
 
         // Create delivery record
         Delivery::create([
@@ -164,13 +182,16 @@ class OrderController extends Controller
         // Process payment
         $paymentResult = $this->processPayment($request->input('payment_method'), $final);
 
-        CartController::removeVoucher();
+        if ($couponId) {
+            CartController::removeVoucher();
+        }
 
         // Pass both success message and payment result to the session
         return redirect()->route('orderList')
             ->with('success', 'Your order has been placed successfully!')
             ->with('paymentResult', $paymentResult);
     }
+
 
     private function processPayment($paymentType, $amount)
     {
