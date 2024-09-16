@@ -1,5 +1,5 @@
 <?php
-
+//Author: Chong Jian
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,11 +27,27 @@ class Food extends Model
         });
     }
 
+    public function cartDetails()
+    {
+        return $this->hasMany(CartDetails::class, 'food_id', 'food_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class, 'food_id', 'food_id');
+    }
+
+
     private static function generateUniqueId()
     {
         $prefix = 'F';
+        $number = 1;
+
         $lastId = self::orderBy('food_id', 'desc')->first();
-        $number = $lastId ? (int)substr($lastId->food_id, 1) + 1 : 1;
+        if ($lastId) {
+            $number = (int)substr($lastId->food_id, strlen($prefix)) + 1;
+        }
+
         return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 }

@@ -41,7 +41,7 @@ class Handler extends ExceptionHandler
 
         // Handle 500 (Internal Server Error) or other non-HTTP exceptions
         if (config('app.debug') === false) {
-            return response()->view('error.customError', [], 500); // Render custom 500 page
+            return response()->view('error.customError'); // Render custom 500 page
         }
 
         // Default error handling for other exceptions

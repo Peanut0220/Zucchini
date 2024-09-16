@@ -1,5 +1,5 @@
 <?php
-
+//Author:Chong Jian & One function (checkoutIndex()) by Shi Lei
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
@@ -46,6 +46,8 @@ class CartController extends Controller
         ]);
     }
 
+
+    //Author:Shi Lei
     public function checkoutIndex()
     {
         // Retrieve the current user
@@ -117,7 +119,7 @@ class CartController extends Controller
         }
     }
 
-    public function removeVoucher()
+    public static function removeVoucher()
     {
         // Remove voucher from session
         session()->forget(['voucherId','voucher', 'voucher_discount']);

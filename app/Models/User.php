@@ -1,5 +1,5 @@
 <?php
-
+//Author: Chong Jian
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -61,11 +61,27 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+    public function cart()
+    {
+        return $this->hasOne(Cart::class, 'user_id', 'user_id');
+    }
+
+    public function couponUsages()
+    {
+        return $this->hasMany(CouponUsage::class, 'user_id', 'user_id');
+    }
+
+
     private static function generateUniqueId()
     {
         $prefix = 'U';
-        $lastId = self::orderBy('user_id','desc')->first();
-        $number = $lastId ? (int)substr($lastId->user_id, 1) + 1 : 1;
+        $number = 1;
+
+        $lastId = self::orderBy('user_id', 'desc')->first();
+        if ($lastId) {
+            $number = (int)substr($lastId->user_id, strlen($prefix)) + 1;
+        }
+
         return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 }

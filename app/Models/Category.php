@@ -1,5 +1,5 @@
 <?php
-
+//Author: Shi Lei
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +24,11 @@ class Category extends Model
                 $model->category_id = self::generateUniqueId();
             }
         });
+    }
+
+    public function foods()
+    {
+        return $this->hasMany(Food::class, 'food_id', 'food_id');
     }
 
     private static function generateUniqueId()

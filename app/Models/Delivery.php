@@ -1,5 +1,5 @@
 <?php
-
+//Author: Shi Lei
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,11 +27,22 @@ class Delivery extends Model
         });
     }
 
+    public function orders()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'order_id');
+    }
+
+
     private static function generateUniqueId()
     {
         $prefix = 'D';
-        $lastId = self::orderBy('delivery_id','desc')->first();
-        $number = $lastId ? (int)substr($lastId->delivery_id, 1) + 1 : 1;
+        $number = 1;
+
+        $lastId = self::orderBy('delivery_id', 'desc')->first();
+        if ($lastId) {
+            $number = (int)substr($lastId->delivery_id, strlen($prefix)) + 1;
+        }
+
         return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+//Author: Chong Jian
 
 namespace App\Models;
 
@@ -34,13 +35,21 @@ class Cart extends Model
         return $this->hasMany(CartDetails::class, 'cart_id', 'cart_id');
     }
 
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 
     private static function generateUniqueId()
     {
         $prefix = 'C';
-        $lastId = self::orderBy('cart_id','desc')->first();
-        $number = $lastId ? (int)substr($lastId->cart_id, 1) + 1 : 1;
+        $number = 1;
+
+        $lastId = self::orderBy('cart_id', 'desc')->first();
+        if ($lastId) {
+            $number = (int)substr($lastId->cart_id, strlen($prefix)) + 1;
+        }
+
         return $prefix . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 }
