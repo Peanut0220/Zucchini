@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             DeliverySeeder::class,
             OrderDetailsSeeder::class,
+            BanksSeeder::class,
         ]);
 
 

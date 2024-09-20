@@ -139,6 +139,9 @@
 
     <!-- Script to handle showing/hiding credit card fields based on payment method -->
     <script>
+        if(document.getElementById('payment-method').value==='CC'){
+            document.getElementById('credit-card-fields').classList.remove('hidden');
+        }
         document.getElementById('payment-method').addEventListener('change', function () {
             const creditCardFields = document.getElementById('credit-card-fields');
             if (this.value === 'CC') {  // Change 'credit_card' to 'CC'

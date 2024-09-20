@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Iterator\ConcreteAggregate;
+use App\Models\banks;
 use App\Models\Cart;
 use App\Models\CouponUsage;
 use App\Models\Delivery;
@@ -112,6 +113,14 @@ class OrderController extends Controller
 
     public function checkout(StoreOrderRequest $request)
     {
+
+        if($request->input('card_number') != null){
+            $exists = banks::where('card_number', $request->input('card_number'))->first();
+            if(!($exists && $exists->expiration_date = $request->input('expiration_date') && $exists->cvv = $request->input('cvv'))){
+                return redirect()->route('checkout')->with('error','Invalid card information');
+            }
+        }
+
         $userId = Auth::id();
 
         // Retrieve the user's cart

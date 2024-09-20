@@ -28,23 +28,28 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        // Check if the exception is an HTTP exception (e.g., 404, 403, etc.)
-        if ($this->isHttpException($exception)) {
-            $statusCode = $exception->getStatusCode();
-            if($statusCode = 404){
-                return response()->view('error.404'); // Render custom 500 page
+        // Check if the exception is an HTTP exception
+        if ($this->isHttpException($e)) {
+            $statusCode = $e->getStatusCode();
+
+            // Handle 404 error
+            if ($statusCode == 404) {
+                return response()->view('error.404', [], 404);
             }
-            return response()->view('error.customError'); // Render custom 500 page
+
+            // Handle 500 Internal Server Error
+            if ($statusCode == 500||$statusCode == 403) {
+                return response()->view('error.500', [], 500);
+            }
         }
 
-        // Handle 500 (Internal Server Error) or other non-HTTP exceptions
-        if (config('app.debug') === false) {
-            return response()->view('error.customError'); // Render custom 500 page
+        if (strpos($e->getMessage(), 'curl')) {
+            return response()->view('error.500', [], 500);
         }
 
         // Default error handling for other exceptions
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 }
