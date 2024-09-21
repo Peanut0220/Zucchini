@@ -1,5 +1,5 @@
 <?php
-
+//Author: Shi Lei
 namespace App\Strategy;
 
 class PaymentContext {

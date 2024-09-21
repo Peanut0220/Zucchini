@@ -25,7 +25,7 @@ class UpdateFoodRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'description' => ['required', 'string', 'max:255'],
-            'thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+            'thumbnail' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
         ];
     }
 }

@@ -1,5 +1,5 @@
 <?php
-
+//Author: Chong Jian
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -23,7 +23,7 @@ class PasswordController extends Controller
                 ->numbers()
                 ->symbols()
                 ->uncompromised(), 'confirmed']
-           
+
         ]);
 
         $request->user()->update([

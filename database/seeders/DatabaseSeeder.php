@@ -49,10 +49,6 @@ class DatabaseSeeder extends Seeder
         // Call other seeders
         $this->call([
             CategorySeeder::class,
-            FoodSeeder::class,
-            OrderSeeder::class,
-            DeliverySeeder::class,
-            OrderDetailsSeeder::class,
             BanksSeeder::class,
         ]);
 

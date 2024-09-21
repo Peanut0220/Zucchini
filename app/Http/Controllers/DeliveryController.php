@@ -7,7 +7,7 @@ use App\Http\Requests\StoreDeliveryRequest;
 use App\Http\Requests\UpdateDeliveryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
+//Author: Shi Lei
 class DeliveryController extends Controller
 {
     /**

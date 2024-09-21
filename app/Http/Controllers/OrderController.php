@@ -1,5 +1,5 @@
 <?php
-
+//Author: Shi Lei
 namespace App\Http\Controllers;
 
 use App\Iterator\ConcreteAggregate;
@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderDetails;
+use App\Models\User;
 use App\Models\XSLTTransformation;
 use App\Strategy\PaymentContext;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class OrderController extends Controller
 
     public function cusShow($orderId)
     {
+
         $order = Order::with('details', 'delivery')->where('order_id', $orderId)->firstOrFail();
         return view('custonly.orderShow', ['order' => $order, 'delivery' => $order->delivery]);
     }
@@ -194,7 +196,7 @@ class OrderController extends Controller
         if ($couponId) {
             CartController::removeVoucher();
         }
-
+        MailController::sendMail($order);
         // Pass both success message and payment result to the session
         return redirect()->route('orderList')
             ->with('success', 'Your order has been placed successfully!')

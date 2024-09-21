@@ -1,3 +1,4 @@
+{{--Author: Shi Lei--}}
 <x-admin-layout>
     <section class="bg-white py-4 antialiased dark:bg-gray-900">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">

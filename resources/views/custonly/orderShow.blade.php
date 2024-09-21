@@ -1,3 +1,4 @@
+{{--Author: Shi Lei--}}
 <x-app-layout>
     <section class="bg-white py-4 antialiased dark:bg-gray-900">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -74,6 +75,18 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Payment Method</label>
                                         <input type="text" value="{{ $order->payment_type }}"
+                                               class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300"
+                                               disabled>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Discount</label>
+                                        <input type="text" value="RM {{ $order->discount }}"
+                                               class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300"
+                                               disabled>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Tax</label>
+                                        <input type="text" value="RM {{ $order->tax }}"
                                                class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300"
                                                disabled>
                                     </div>

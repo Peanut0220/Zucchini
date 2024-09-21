@@ -1,5 +1,5 @@
 <?php
-
+//Author: Chong Jian
 namespace App\Iterator;
 use App\Iterator\Aggregate;
 
@@ -18,7 +18,7 @@ class ConcreteAggregate implements Aggregate {
 
     /**
      * Constructor to initialize the aggregate with an array of items.
-     * 
+     *
      * @param T[] $items Array of model items
      */
     public function __construct(array $items) {

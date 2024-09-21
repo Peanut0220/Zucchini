@@ -56,7 +56,7 @@
                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
                             </div>
                             <!-- Hidden input for file upload -->
-                            <input id="dropzone-file" name="thumbnail" type="file" accept="image/*" class="hidden" />
+                            <input id="dropzone-file" name="thumbnail" type="file" accept="image/*" class="hidden" value="{{ $food->image_path }}"/>
                             <!-- Image Preview INSIDE dropzone -->
                             <img id="file-preview" class="max-w-full h-auto rounded-lg {{ $food->image_path ? '' : 'hidden' }}" src="{{ $food->image_path ? asset('storage/'.$food->image_path) : '' }}" alt="Image Preview">
                         </label>

@@ -64,14 +64,14 @@ Route::get('/aboutUs', function () {
 
 // Routes for authenticated users
 Route::middleware(['auth','verified'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::get('/home', function () {
         return view('custonly.home');
     })->name('home');
 
+    //chong jian
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/menu', [FoodController::class, 'customerMenu'])->name('menu');
     Route::get('/foodDetail/{food}', [FoodController::class, 'showCus'])->name('foodDetail');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -79,9 +79,13 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::delete('/cart/{cartDetail}', [CartController::class, 'destroy'])->name('cart.delete');  // For deleting individual items
     Route::delete('/cart/clear/clean', [CartController::class, 'clear'])->name('cart.clear');
     Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
     Route::get('/coupons', [CouponController::class, 'getCoupons'])->name('coupon');
     Route::get('/coupons/{id}', [CouponController::class, 'getCoupon']);
+    Route::post('/cart/voucher/apply', [CartController::class, 'applyVoucher'])->name('voucher.apply');
+    Route::post('/cart/voucher/remove', [CartController::class, 'removeVoucher'])->name('voucher.remove');
+
+    //shi lei
+    Route::get('/cusShow/{delivery}', [DeliveryController::class, 'cusShow'])->name('cusShow');
     Route::get('/checkout', [CartController::class, 'checkoutIndex'])->name('checkout');
     Route::post('/checkout/process', [OrderController::class, 'checkout'])->name('checkout.process');
     Route::get('/order/success/{order_id}', [OrderController::class, 'orderSuccess'])->name('order.success');
@@ -91,8 +95,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/cusOrder/{order}', [OrderController::class, 'cusShow'])->name('cusOrderShow');
     Route::get('/delivery-status/{delivery}', [DeliveryController::class, 'getDeliveryStatus']);
     Route::get('/export-orders', 'App\Http\Controllers\OrderController@displayTransformedXML')->name('export.orders');
-    Route::post('/cart/voucher/apply', [CartController::class, 'applyVoucher'])->name('voucher.apply');
-    Route::post('/cart/voucher/remove', [CartController::class, 'removeVoucher'])->name('voucher.remove');
+
 
 
 });

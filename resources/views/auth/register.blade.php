@@ -1,3 +1,4 @@
+{{--Author: Chong Jian--}}
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -36,6 +37,7 @@
         </div>
 
         <!-- Confirm Password -->
+
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 

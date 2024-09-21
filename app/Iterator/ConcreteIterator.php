@@ -1,5 +1,5 @@
 <?php
-
+//Author: Chong Jian
 namespace App\Iterator;
 
 /**
@@ -20,7 +20,7 @@ class ConcreteIterator implements Iterator {
 
     /**
      * Constructor to initialize the iterator with an array of items.
-     * 
+     *
      * @param T[] $items Array of model items
      */
     public function __construct(array $items) {

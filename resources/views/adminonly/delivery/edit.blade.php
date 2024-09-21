@@ -1,3 +1,4 @@
+{{--Author: Shi Lei--}}
 <x-admin-layout>
     <div class="p-8 bg-white rounded-lg shadow-lg max-w-3xl mx-auto mt-16">
         <h2 class="text-3xl font-semibold mb-6 text-center">Delivery Details</h2>
@@ -7,11 +8,15 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Delivery ID</label>
-                    <input type="text" value="{{ $delivery->id }}" class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300" disabled>
+                    <input type="text" value="{{ $delivery->delivery_id }}" class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300" disabled>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Order ID</label>
                     <input type="text" value="{{ $delivery->order_id }}" class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300" disabled>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Rider</label>
+                    <input type="text" value="{{ $delivery->rider }}" class="mt-1 p-2 block w-full bg-gray-100 rounded-md border-gray-300" disabled>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Created At</label>

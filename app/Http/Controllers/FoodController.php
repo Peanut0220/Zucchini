@@ -48,6 +48,7 @@ class FoodController extends Controller
     // Customer view for listing foods
     public function customerMenu(Request $request)
     {
+
         $query = Food::query();
 
         // Filter by category
@@ -159,16 +160,22 @@ class FoodController extends Controller
 
             $file = $request->file('thumbnail');
             $filePath = $file->store('images');
+            $food->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'image_path' => $filePath,
+            ]);
         }
 
         $food->update([
             'name' => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
-            'image_path' => $filePath,
+            'price' => $request->price
+
         ]);
 
-        return redirect()->route('food.index');
+        return redirect()->route('food.index')->with('success', 'Food updated successfully!');
     }
 
     /**
@@ -182,7 +189,7 @@ class FoodController extends Controller
         }
 
         $food->delete();
-        return redirect()->route('food.index');
+        return redirect()->route('food.index')->with('success', 'Food deleted successfully!');
     }
 
 }
