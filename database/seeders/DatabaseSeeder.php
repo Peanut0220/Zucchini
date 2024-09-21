@@ -36,7 +36,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'test2@example.com',
         ]);
 
+        // Create specific test user
+        $testUser3 = \App\Models\User::factory()->create([
+            'name' => 'Ng Chong Jian',
+            'email' => 'test3@example.com',
+        ]);
 
+        $testUser3->assignRole('customer');
         $testUser2->assignRole('customer');
         // Assign admin role to the test user
         $testUser->assignRole('admin');
@@ -50,6 +56,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             BanksSeeder::class,
+            FoodSeeder::class,
+            OrderSeeder::class,
+            OrderDetailsSeeder::class,
+            DeliverySeeder::class
         ]);
 
 

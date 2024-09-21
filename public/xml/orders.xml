@@ -2,15 +2,21 @@
 <?xml-stylesheet type="text/xsl" href="/xml/orders.xsl"?>
 <Orders>
   <Order>
-    <OrderID>OR00025</OrderID>
-    <Total>234.92</Total>
+    <OrderID>OR00004</OrderID>
+    <Total>24.38</Total>
     <PaymentType>Ewallet</PaymentType>
-    <CreatedAt>2024-09-16 16:04:00</CreatedAt>
+    <CreatedAt>2024-09-21 15:16:55</CreatedAt>
   </Order>
   <Order>
-    <OrderID>OR00026</OrderID>
-    <Total>97.85</Total>
+    <OrderID>OR00005</OrderID>
+    <Total>26.50</Total>
+    <PaymentType>Credit Card</PaymentType>
+    <CreatedAt>2024-09-21 15:16:55</CreatedAt>
+  </Order>
+  <Order>
+    <OrderID>OR00006</OrderID>
+    <Total>62.54</Total>
     <PaymentType>Cash On Delivery</PaymentType>
-    <CreatedAt>2024-09-16 16:41:05</CreatedAt>
+    <CreatedAt>2024-09-21 15:16:55</CreatedAt>
   </Order>
 </Orders>

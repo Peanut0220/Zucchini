@@ -39,4 +39,6 @@ class FoodFactory extends Factory
         $id = $prefix . str_pad($counter++, 5, '0', STR_PAD_LEFT);
         return $id;
     }
+
+
 }
