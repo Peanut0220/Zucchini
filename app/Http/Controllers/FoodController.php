@@ -106,6 +106,7 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
+
         $filePath = null;
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');

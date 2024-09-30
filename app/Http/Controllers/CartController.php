@@ -56,6 +56,7 @@ class CartController extends Controller
         $response = Http::withOptions([
             'verify' => false, // Disable SSL certificate verification
         ])->get('https://localhost:44351/api/delivery');
+
         $deliveries = $response->json();
 
         // Check if the user already has an active cart

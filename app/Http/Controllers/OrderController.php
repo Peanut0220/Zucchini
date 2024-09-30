@@ -175,8 +175,6 @@ class OrderController extends Controller
             ]);
         }
 
-
-
         // Create delivery record
         Delivery::create([
             'address' => $request->input('street_address'),

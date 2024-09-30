@@ -22,7 +22,7 @@ class UpdateFoodRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','max:255'],
+            'name' => ['required','string','max:255' ,'unique:food,name'],
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'description' => ['required', 'string', 'max:255'],
             'thumbnail' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']

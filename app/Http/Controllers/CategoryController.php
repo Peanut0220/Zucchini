@@ -35,12 +35,12 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
 
+        // Create the new category
         Category::create([
             'name' => $request->name
         ]);
 
         return redirect()->route('category.index')->with('success', 'Category created successfully!');
-
     }
 
     /**
@@ -65,6 +65,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+
         $category->update([
             'name' => $request->name
         ]);
