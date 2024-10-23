@@ -3,68 +3,62 @@
 <Foods>
   <Food>
     <ID>F00001</ID>
-    <Name>Recusandae occaecati quo id.</Name>
-    <Description>Recusandae magni commodi libero magni. Earum asperiores accusantium sit fuga veniam.</Description>
-    <Price>92.31</Price>
+    <Name>Nasi Lemak</Name>
+    <Description>Malaysian Nasi Lemak</Description>
+    <Price>12.00</Price>
   </Food>
   <Food>
     <ID>F00002</ID>
-    <Name>Maiores qui sit tempore eum.</Name>
-    <Description>Saepe sed in ut beatae maiores. Sunt assumenda alias omnis et.</Description>
-    <Price>92.45</Price>
+    <Name>Bolognese Spaghetti</Name>
+    <Description>Strong flavor spaghetti in town</Description>
+    <Price>13.00</Price>
   </Food>
   <Food>
     <ID>F00003</ID>
-    <Name>Fugiat quas saepe ad.</Name>
-    <Description>Sunt occaecati ducimus quaerat modi ut. Esse aut qui quidem quia enim.</Description>
-    <Price>61.63</Price>
+    <Name>Pepperoni Pizza</Name>
+    <Description>This pizza dough recipe is a quick-and-easy, no-rise dough made</Description>
+    <Price>24.00</Price>
   </Food>
   <Food>
     <ID>F00004</ID>
-    <Name>Atque alias quia et et.</Name>
-    <Description>Suscipit non adipisci qui praesentium modi non. Quam consequatur veritatis nemo.</Description>
-    <Price>26.82</Price>
+    <Name>Orange Juice</Name>
+    <Description>Fresh squeezed juice</Description>
+    <Price>7.00</Price>
   </Food>
   <Food>
     <ID>F00005</ID>
-    <Name>Molestiae ut et recusandae.</Name>
-    <Description>Qui magnam tempore saepe omnis. Qui temporibus cupiditate magnam voluptas modi.</Description>
-    <Price>52.71</Price>
+    <Name>Mixed Chips</Name>
+    <Description>Crunchy chips</Description>
+    <Price>15.00</Price>
   </Food>
   <Food>
     <ID>F00006</ID>
-    <Name>Quo qui qui facere.</Name>
-    <Description>Qui atque laboriosam repudiandae. Doloremque repellendus eaque ipsam sunt repellendus est cum.</Description>
-    <Price>82.84</Price>
+    <Name>Healthy bun</Name>
+    <Description>Freshly baked bun</Description>
+    <Price>12.00</Price>
   </Food>
   <Food>
     <ID>F00007</ID>
-    <Name>Dolores corporis enim non.</Name>
-    <Description>Impedit est labore excepturi in laborum et debitis. Molestiae illum et eum dolore.</Description>
-    <Price>32.92</Price>
+    <Name>Latte</Name>
+    <Description>Typical Latte</Description>
+    <Price>11.00</Price>
   </Food>
   <Food>
     <ID>F00008</ID>
-    <Name>Omnis consectetur aut rerum.</Name>
-    <Description>Commodi nobis odio tempora ut. Debitis accusantium nulla eum nesciunt ea nostrum culpa.</Description>
-    <Price>83.82</Price>
+    <Name>French Fries</Name>
+    <Description>A popular bites</Description>
+    <Price>12.50</Price>
   </Food>
   <Food>
     <ID>F00009</ID>
-    <Name>Aliquam et qui facere libero.</Name>
-    <Description>Doloribus dolor nihil praesentium est. Nemo asperiores saepe alias ducimus qui ut quo.</Description>
-    <Price>18.01</Price>
+    <Name>American Burger</Name>
+    <Description>Flavorful burger</Description>
+    <Price>15.00</Price>
   </Food>
   <Food>
     <ID>F00010</ID>
-    <Name>Ut enim veniam ullam beatae.</Name>
-    <Description>Nulla et enim officia explicabo. Est placeat aliquam ex dolor in omnis. Non vel aliquid esse autem.</Description>
-    <Price>90.29</Price>
-  </Food>
-  <Food>
-    <ID>F00011</ID>
-    <Name>Ng Chong Jian</Name>
-    <Description>ewq</Description>
-    <Price>123.00</Price>
+    <Name>Cookies</Name>
+    <Description>Freshly baked cookies</Description>
+    <Price>11.00</Price>
   </Food>
 </Foods>
